@@ -1,12 +1,3 @@
-//
-//  ██████   █████  ██████   █████   ██████  ██████   █████  ██████  ██   ██
-//  ██   ██ ██   ██ ██   ██ ██   ██ ██       ██   ██ ██   ██ ██   ██ ██   ██
-//  ██████  ███████ ██████  ███████ ██   ███ ██████  ███████ ██████  ███████
-//  ██      ██   ██ ██   ██ ██   ██ ██    ██ ██   ██ ██   ██ ██      ██   ██
-//  ██      ██   ██ ██   ██ ██   ██  ██████  ██   ██ ██   ██ ██      ██   ██
-//  
-//  #paragraph
-//
 @include pine-placeholder-extend-ns('pine', 'paragraph', 'default', 'pine', 'text');
 @include pine-placeholder-extend-ns('pine', 'paragraph', 'default', 'pine', 'paragraph', 'margin', $optional: true);
 @include pine-placeholder-extend-ns('pine', 'paragraph', 'margin', 'pine', 'gap', 'margin-column-#{pine-safe($pine-paragraph--default-gap-size)}', $optional: true);

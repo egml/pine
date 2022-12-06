@@ -1,12 +1,3 @@
-//
-//   ██████   █████  ██████
-//  ██       ██   ██ ██   ██
-//  ██   ███ ███████ ██████
-//  ██    ██ ██   ██ ██
-//   ██████  ██   ██ ██
-//  
-//  #gap
-//
 @each $size in $pine-gap--sizes {
 	$size-safe: pine-safe($size);
 	$size-em: pine-em($size);

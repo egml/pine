@@ -1,12 +1,3 @@
-//
-//  ██████   ██████  ██     ██
-//  ██   ██ ██    ██ ██     ██
-//  ██████  ██    ██ ██  █  ██
-//  ██   ██ ██    ██ ██ ███ ██
-//  ██   ██  ██████   ███ ███
-//  
-//  #row
-//
 @include pine-placeholder-ns('pine', 'row') {
 	@include pine-row--styles();
 }
@@ -62,16 +53,9 @@
 }
 @include pine-placeholder-extend-ns('pine', 'row', 'no-wrap', 'pine', 'row', 'nowrap');
 
-//
-//  ██ ████████ ███████ ███    ███
-//  ██    ██    ██      ████  ████
-//  ██    ██    █████   ██ ████ ██
-//  ██    ██    ██      ██  ██  ██
-//  ██    ██    ███████ ██      ██
 //  
 //  #item
 //
-
 @include pine-placeholder-ns('pine', 'row-item') {
 	flex: 0 1 auto;
 	// #NOTE: По вопросу дефолтного flex-basis смотри эпический батл test/flexbox-overflow-scroll. TL;DR: Для iOS Safari иногда нужно "0%", и вообще, это "initial value", как удалось вычислить через getComputedStyle. Надо это помнить.

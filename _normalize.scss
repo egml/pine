@@ -1,13 +1,3 @@
-// 
-//  ███    ██  ██████  ██████  ███    ███  █████  ██      ██ ███████ ███████
-//  ████   ██ ██    ██ ██   ██ ████  ████ ██   ██ ██      ██    ███  ██
-//  ██ ██  ██ ██    ██ ██████  ██ ████ ██ ███████ ██      ██   ███   █████
-//  ██  ██ ██ ██    ██ ██   ██ ██  ██  ██ ██   ██ ██      ██  ███    ██
-//  ██   ████  ██████  ██   ██ ██      ██ ██   ██ ███████ ██ ███████ ███████
-//  
-//  #normalize
-// 
-
 @include pine-placeholder-extend-ns('pine', 'normalize', 'block', 'pine', 'nullify', 'block');
 @include pine-placeholder-ns('pine', 'normalize', 'focus') {
 	@include pine-normalize--styles('focus');

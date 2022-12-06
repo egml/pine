@@ -1,12 +1,3 @@
-//
-//   ██████  ██████  ██      ██    ██ ███    ███ ███    ██
-//  ██      ██    ██ ██      ██    ██ ████  ████ ████   ██
-//  ██      ██    ██ ██      ██    ██ ██ ████ ██ ██ ██  ██
-//  ██      ██    ██ ██      ██    ██ ██  ██  ██ ██  ██ ██
-//   ██████  ██████  ███████  ██████  ██      ██ ██   ████
-//  
-//  #column
-//
 @include pine-placeholder-ns('pine', 'column') {
 	@include pine-column--styles();
 }
@@ -87,15 +78,7 @@
 @include pine-placeholder-extend-ns('pine', 'col', 'wrap', 'pine', 'column', 'wrap');
 @include pine-placeholder-extend-ns('pine', 'col', 'no-wrap', 'pine', 'column', 'no-wrap');
 
-//
-//  ██ ████████ ███████ ███    ███
-//  ██    ██    ██      ████  ████
-//  ██    ██    █████   ██ ████ ██
-//  ██    ██    ██      ██  ██  ██
-//  ██    ██    ███████ ██      ██
-//  
-//  #item
-//
+// #item
 @include pine-placeholder-ns('pine', 'column-item') {
 	flex: 0 1 auto;
 }
