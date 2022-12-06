@@ -1,7 +1,7 @@
 {
 	"name": "@egml/pine",
 	"description": "🌲 Utilities and helpers for Sass",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"main": "_preset-app.scss",
 	"license": "MIT",
 	"author": "Егор Малыгин <egor.malygin@gmail.com> (http://haveagoodday.ru)",
