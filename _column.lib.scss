@@ -1,0 +1,268 @@
+//
+//   ██████  ██████  ██      ██    ██ ███    ███ ███    ██
+//  ██      ██    ██ ██      ██    ██ ████  ████ ████   ██
+//  ██      ██    ██ ██      ██    ██ ██ ████ ██ ██ ██  ██
+//  ██      ██    ██ ██      ██    ██ ██  ██  ██ ██  ██ ██
+//   ██████  ██████  ███████  ██████  ██      ██ ██   ████
+//  
+//     ██      ██ ██████
+//     ██      ██ ██   ██
+//     ██      ██ ██████
+//     ██      ██ ██   ██
+//  ██ ███████ ██ ██████
+//  
+//  #column #lib
+//
+$pine-column--gap-sizes: $pine-gap--sizes !default;
+$pine-column--item-gap-sizes: $pine-gap--sizes !default;
+
+@mixin pine-column--styles($mods: 'default')
+{
+	@each $mod in $mods {
+		@if $mod == 'default' {
+			display: flex;
+			align-items: stretch;
+			justify-content: normal;
+			flex-flow: column nowrap;
+		}
+		@if $mod == 'block' {
+			display: flex;
+		}
+		@if $mod == 'inline' {
+			display: inline-flex;
+			align-items: baseline;
+		}
+		@if $mod == 'top' {
+			justify-content: flex-start;
+		}
+		@if $mod == 'normal' {
+			justify-content: normal;
+		}
+		@if $mod == 'stretch' {
+			align-items: stretch;
+		}
+		@if $mod == 'middle' {
+			justify-content: center;
+		}
+		@if $mod == 'safe-middle' {
+			justify-content: safe center;
+		}
+		@if $mod == 'bottom' {
+			justify-content: flex-end;
+		}
+		@if $mod == 'left' {
+			align-items: flex-start;
+		}
+		@if $mod == 'center' {
+			align-items: center;
+		}
+		@if $mod == 'safe-center' {
+			align-items: safe center;
+		}
+		@if $mod == 'right' {
+			align-items: flex-end;
+		}
+		@if $mod == 'wrap' {
+			flex-wrap: wrap;
+		}
+		@if $mod == 'nowrap' {
+			flex-wrap: nowrap;
+		}
+	}
+}
+
+@mixin pine-column--rules($ns: 'pine')
+{
+	@include pine-selector-ns($ns, 'column') {
+		$class-name: pine-name('column', $ns);
+		
+		@include pine-extend-ns('pine', 'column');
+
+		&.#{$class-name}--block {
+			@include pine-extend-ns('pine', 'column', 'block');
+		}
+		&.#{$class-name}--inline {
+			@include pine-extend-ns('pine', 'column', 'inline');
+		}
+		&.#{$class-name}--top {
+			@include pine-extend-ns('pine', 'column', 'top');
+		}
+		&.#{$class-name}--stretch {
+			@include pine-extend-ns('pine', 'column', 'stretch');
+		}
+		&.#{$class-name}--middle {
+			@include pine-extend-ns('pine', 'column', 'middle');
+		}
+		&.#{$class-name}--safe-middle {
+			@include pine-extend-ns('pine', 'column', 'safe-middle');
+		}
+		&.#{$class-name}--bottom {
+			@include pine-extend-ns('pine', 'column', 'bottom');
+		}
+		&.#{$class-name}--left {
+			@include pine-extend-ns('pine', 'column', 'left');
+		}
+		&.#{$class-name}--center {
+			@include pine-extend-ns('pine', 'column', 'center');
+		}
+		&.#{$class-name}--safe-center {
+			@include pine-extend-ns('pine', 'column', 'safe-center');
+		}
+		&.#{$class-name}--right {
+			@include pine-extend-ns('pine', 'column', 'right');
+		}
+		@if length($pine-column--gap-sizes) > 0 {
+			@each $size in $pine-column--item-gap-sizes {
+				$size-safe: pine-safe($size);
+				&.#{$class-name}--item-margin-#{$size-safe} {
+					> #{pine-selector-ns($ns, 'column-item')} {
+						@include pine-extend-ns('pine', 'column-item', 'margin-#{$size-safe}', $optional: true);
+						@each $size2 in $pine-column--item-gap-sizes {
+							@if ($size2 != $size) {
+								$size2: pine-safe($size2);
+								&.#{$class-name}-item--margin-#{$size2} {
+									@include pine-extend-ns('pine', 'column-item', 'margin-#{$size2}', $optional: true);
+								}
+							}
+						}
+					}
+				}
+				&.#{$class-name}--item-margin-#{$size-safe}a {
+					> #{pine-selector-ns($ns, 'column-item')} {
+						@include pine-extend-ns('pine', 'column-item', 'margin-#{$size-safe}a', $optional: true);
+						@each $size2 in $pine-column--item-gap-sizes {
+							@if ($size2 != $size) {
+								$size2: pine-safe($size2);
+								&.#{$class-name}-item--margin-#{$size2}a {
+									@include pine-extend-ns('pine', 'column-item', 'margin-#{$size2}a', $optional: true);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		&.#{$class-name}--margin,
+		&.#{$class-name}--paragraph {
+			@include pine-extend-ns('pine', 'column', 'margin', null, true);
+		}
+		@each $size in $pine-column--gap-sizes {
+			$size: pine-safe($size);
+			&.#{$class-name}--margin-#{$size} {
+				@include pine-extend-ns('pine', 'column', 'margin-#{$size}', null, true);
+			}
+			&.#{$class-name}--margin-#{$size}a {
+				@include pine-extend-ns('pine', 'column', 'margin-#{$size}a', null, true);
+			}
+		}
+		&.#{$class-name}--wrap {
+			@include pine-extend-ns('pine', 'column', 'wrap');
+		}
+		&.#{$class-name}--nowrap, 
+		&.#{$class-name}--no-wrap {
+			@include pine-extend-ns('pine', 'column', 'nowrap');
+		}
+		@include pine-edge--margin-column-mods($ns, 'column');
+	}
+	@include pine-selector-ns($ns, 'column-item') {
+		$class-name: pine-name('column-item', $ns);
+		
+		@include pine-extend-ns('pine', 'column-item');
+
+		@if length($pine-column--gap-sizes) > 0 {
+			@each $size in $pine-column--item-gap-sizes {
+				$size: pine-safe($size);
+				&.#{$class-name}--margin-#{$size} {
+					@include pine-extend-ns('pine', 'column-item', 'margin-#{$size}', $optional: true);
+				}
+				&.#{$class-name}--margin-#{$size}a {
+					@include pine-extend-ns('pine', 'column-item', 'margin-#{$size}a', $optional: true);
+				}
+			}
+		}
+		&.#{$class-name}--fill {
+			@include pine-extend-ns('pine', 'column-item', 'fill');
+		}
+		&.#{$class-name}--no-shrink {
+			@include pine-extend-ns('pine', 'column-item', 'no-shrink');
+		}
+		&.#{$class-name}--basis-zero-percent {
+			@include pine-extend-ns('pine', 'column-item', 'basis-zero-percent');
+		}
+		&.#{$class-name}--basis-initial {
+			@include pine-extend-ns('pine', 'column-item', 'basis-initial');
+		}
+		&.#{$class-name}--basis-auto {
+			@include pine-extend-ns('pine', 'column-item', 'basis-auto');
+		}
+		&.#{$class-name}--left {
+			@include pine-extend-ns('pine', 'column-item', 'left');
+		}
+		&.#{$class-name}--center {
+			@include pine-extend-ns('pine', 'column-item', 'center');
+		}
+		&.#{$class-name}--safe-center {
+			@include pine-extend-ns('pine', 'column-item', 'safe-center');
+		}
+		&.#{$class-name}--stretch {
+			@include pine-extend-ns('pine', 'column-item', 'stretch');
+		}
+		&.#{$class-name}--right {
+			@include pine-extend-ns('pine', 'column-item', 'right');
+		}
+		&.#{$class-name}--clip {
+			@include pine-extend-ns('pine', 'column-item', 'clip');
+		}
+	}
+	// псевдоним column-item
+	@include pine-selector-ns($ns, 'col-item') {
+		$class-name: pine-name('col-item', $ns);
+		
+		@include pine-extend-ns('pine', 'column-item');
+		
+		@if length($pine-column--gap-sizes) > 0 {
+			@each $size in $pine-column--item-gap-sizes {
+				$size: pine-safe($size);
+				&.#{$class-name}--margin-#{$size} {
+					@include pine-extend-ns('pine', 'column-item', 'margin-#{$size}', $optional: true);
+				}
+				&.#{$class-name}--margin-#{$size}a {
+					@include pine-extend-ns('pine', 'column-item', 'margin-#{$size}a', $optional: true);
+				}
+			}
+		}
+		&.#{$class-name}--fill {
+			@include pine-extend-ns('pine', 'column-item', 'fill');
+		}
+		&.#{$class-name}--no-shrink {
+			@include pine-extend-ns('pine', 'column-item', 'no-shrink');
+		}
+		&.#{$class-name}--basis-zero-percent {
+			@include pine-extend-ns('pine', 'column-item', 'basis-zero-percent');
+		}
+		&.#{$class-name}--basis-initial {
+			@include pine-extend-ns('pine', 'column-item', 'basis-initial');
+		}
+		&.#{$class-name}--basis-auto {
+			@include pine-extend-ns('pine', 'column-item', 'basis-auto');
+		}
+		&.#{$class-name}--left {
+			@include pine-extend-ns('pine', 'column-item', 'left');
+		}
+		&.#{$class-name}--center {
+			@include pine-extend-ns('pine', 'column-item', 'center');
+		}
+		&.#{$class-name}--safe-center {
+			@include pine-extend-ns('pine', 'column-item', 'safe-center');
+		}
+		&.#{$class-name}--stretch {
+			@include pine-extend-ns('pine', 'column-item', 'stretch');
+		}
+		&.#{$class-name}--right {
+			@include pine-extend-ns('pine', 'column-item', 'right');
+		}
+		&.#{$class-name}--clip {
+			@include pine-extend-ns('pine', 'column-item', 'clip');
+		}
+	}
+}

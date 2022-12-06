@@ -1,0 +1,30 @@
+//
+//  ███████ ██    ██ ██      ██
+//  ██      ██    ██ ██      ██
+//  █████   ██    ██ ██      ██
+//  ██      ██    ██ ██      ██
+//  ██       ██████  ███████ ███████
+//  
+//  ██   ██ ███████ ██  ██████  ██   ██ ████████
+//  ██   ██ ██      ██ ██       ██   ██    ██
+//  ███████ █████   ██ ██   ███ ███████    ██
+//  ██   ██ ██      ██ ██    ██ ██   ██    ██
+//  ██   ██ ███████ ██  ██████  ██   ██    ██
+//  
+//  #full #height
+//
+@mixin pine-full-height--rules($ns: 'pine')
+{
+	@include pine-selector-ns($ns, 'html', 'full-height') {
+		@include pine-extend-ns('pine', 'full-height');
+	}
+	@include pine-selector-ns($ns, 'body', 'full-height') {
+		@include pine-extend-ns('pine', 'full-height');
+	}
+	@include pine-selector-ns($ns, $pine-root-container-name, 'full-height') {
+		@include pine-extend-ns('pine', 'full-height');
+	}
+	@include pine-selector-ns($ns, 'full-height') {
+		@include pine-extend-ns('pine', 'full-height');
+	}
+}

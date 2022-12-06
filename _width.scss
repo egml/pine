@@ -1,0 +1,22 @@
+//
+//  ██     ██ ██ ██████  ████████ ██   ██
+//  ██     ██ ██ ██   ██    ██    ██   ██
+//  ██  █  ██ ██ ██   ██    ██    ███████
+//  ██ ███ ██ ██ ██   ██    ██    ██   ██
+//   ███ ███  ██ ██████     ██    ██   ██
+// 
+//  #widths
+//
+
+@each $size in $pine-width--sizes-percent {
+	$size-safe: pine-safe($size);
+	@include pine-placeholder-ns('pine', 'width', 'size-#{$size-safe}-percent') {
+		@include pine-width--styles('size-#{$size-safe}-percent');
+	}
+}
+@each $size in $pine-width--sizes-px {
+	$size-safe: pine-safe($size);
+	@include pine-placeholder-ns('pine', 'width', 'size-#{$size-safe}-px') {
+		@include pine-width--styles('size-#{$size-safe}-px');
+	}
+}

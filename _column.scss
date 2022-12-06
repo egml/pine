@@ -1,0 +1,156 @@
+//
+//   ██████  ██████  ██      ██    ██ ███    ███ ███    ██
+//  ██      ██    ██ ██      ██    ██ ████  ████ ████   ██
+//  ██      ██    ██ ██      ██    ██ ██ ████ ██ ██ ██  ██
+//  ██      ██    ██ ██      ██    ██ ██  ██  ██ ██  ██ ██
+//   ██████  ██████  ███████  ██████  ██      ██ ██   ████
+//  
+//  #column
+//
+@include pine-placeholder-ns('pine', 'column') {
+	@include pine-column--styles();
+}
+@include pine-placeholder-ns('pine', 'column', 'block') {
+	@include pine-column--styles('block');
+}
+@include pine-placeholder-ns('pine', 'column', 'inline') {
+	@include pine-column--styles('inline');
+}
+@include pine-placeholder-ns('pine', 'column', 'top') {
+	@include pine-column--styles('top');
+}
+@include pine-placeholder-ns('pine', 'column', 'normal') {
+	@include pine-column--styles('normal');
+}
+@include pine-placeholder-ns('pine', 'column', 'stretch') {
+	@include pine-column--styles('stretch');
+}
+@include pine-placeholder-ns('pine', 'column', 'middle') {
+	@include pine-column--styles('middle');
+}
+@include pine-placeholder-ns('pine', 'column', 'safe-middle') {
+	@include pine-column--styles('safe-middle');
+}
+@include pine-placeholder-ns('pine', 'column', 'bottom') {
+	@include pine-column--styles('bottom');
+}
+@include pine-placeholder-ns('pine', 'column', 'left') {
+	@include pine-column--styles('left');
+}
+@include pine-placeholder-ns('pine', 'column', 'center') {
+	@include pine-column--styles('center');
+}
+@include pine-placeholder-ns('pine', 'column', 'safe-center') {
+	@include pine-column--styles('safe-center');
+}
+@include pine-placeholder-ns('pine', 'column', 'right') {
+	@include pine-column--styles('right');
+}
+@include pine-placeholder-extend-ns('pine', 'column', 'margin', 'pine', 'paragraph', 'margin', true);
+@include pine-placeholder-extend-ns('pine', 'column', 'paragraph', 'pine', 'column', 'margin', true);
+@each $size in $pine-column--gap-sizes {
+	$size: pine-safe($size);
+	@include pine-placeholder-extend-ns('pine', 'column', 'margin-#{$size}', 'pine', 'gap', 'margin-column-#{$size}', true);
+	@include pine-placeholder-extend-ns('pine', 'column', 'margin-#{$size}a', 'pine', 'gap', 'margin-column-#{$size}a', true);
+}
+@include pine-placeholder-extend-ns('pine', 'column', 'edge', 'pine', 'edge', 'margin-column');
+@include pine-placeholder-ns('pine', 'column', 'wrap') {
+	@include pine-column--styles('wrap');
+}
+@include pine-placeholder-ns('pine', 'column', 'nowrap') {
+	@include pine-column--styles('nowrap');
+}
+@include pine-placeholder-extend-ns('pine', 'column', 'no-wrap', 'pine', 'column', 'nowrap');
+
+// Псевдоним "col"
+@include pine-placeholder-extend-ns('pine', 'col', 'default', 'pine', 'column');
+@include pine-placeholder-extend-ns('pine', 'col', 'block', 'pine', 'column', 'block');
+@include pine-placeholder-extend-ns('pine', 'col', 'inline', 'pine', 'column', 'inline');
+@include pine-placeholder-extend-ns('pine', 'col', 'top', 'pine', 'column', 'top');
+@include pine-placeholder-extend-ns('pine', 'col', 'normal', 'pine', 'column', 'normal');
+@include pine-placeholder-extend-ns('pine', 'col', 'stretch', 'pine', 'column', 'stretch');
+@include pine-placeholder-extend-ns('pine', 'col', 'middle', 'pine', 'column', 'middle');
+@include pine-placeholder-extend-ns('pine', 'col', 'safe-middle', 'pine', 'column', 'safe-middle');
+@include pine-placeholder-extend-ns('pine', 'col', 'bottom', 'pine', 'column', 'bottom');
+@include pine-placeholder-extend-ns('pine', 'col', 'left', 'pine', 'column', 'left');
+@include pine-placeholder-extend-ns('pine', 'col', 'center', 'pine', 'column', 'center');
+@include pine-placeholder-extend-ns('pine', 'col', 'safe-center', 'pine', 'column', 'safe-center');
+@include pine-placeholder-extend-ns('pine', 'col', 'right', 'pine', 'column', 'right');
+@include pine-placeholder-extend-ns('pine', 'col', 'margin', 'pine', 'column', 'margin', true);
+@include pine-placeholder-extend-ns('pine', 'col', 'paragraph', 'pine', 'column', 'paragraph', true);
+@each $size in $pine-column--gap-sizes {
+	$size: pine-safe($size);
+	@include pine-placeholder-extend-ns('pine', 'col', 'margin-#{$size}', 'pine', 'column', 'margin-#{$size}', true);
+	@include pine-placeholder-extend-ns('pine', 'col', 'margin-#{$size}a', 'pine', 'column', 'margin-#{$size}a', true);
+}
+@include pine-placeholder-extend-ns('pine', 'col', 'edge', 'pine', 'column', 'edge');
+@include pine-placeholder-extend-ns('pine', 'col', 'wrap', 'pine', 'column', 'wrap');
+@include pine-placeholder-extend-ns('pine', 'col', 'no-wrap', 'pine', 'column', 'no-wrap');
+
+//
+//  ██ ████████ ███████ ███    ███
+//  ██    ██    ██      ████  ████
+//  ██    ██    █████   ██ ████ ██
+//  ██    ██    ██      ██  ██  ██
+//  ██    ██    ███████ ██      ██
+//  
+//  #item
+//
+@include pine-placeholder-ns('pine', 'column-item') {
+	flex: 0 1 auto;
+}
+@each $size in $pine-column--item-gap-sizes {
+	$size: pine-safe($size);
+	@include pine-placeholder-extend-ns('pine', 'column-item', 'margin-#{$size}', 'pine', 'gap', 'margin-bottom-#{$size}', true);
+	@include pine-placeholder-extend-ns('pine', 'column-item', 'margin-#{$size}', 'pine', 'edge', 'margin-column');
+	@include pine-placeholder-extend-ns('pine', 'column-item', 'margin-#{$size}a', 'pine', 'gap', 'margin-bottom-#{$size}a', true);
+	@include pine-placeholder-extend-ns('pine', 'column-item', 'margin-#{$size}a', 'pine', 'edge', 'margin-column');
+}
+@include pine-placeholder-ns('pine', 'column-item', 'fill') {
+	flex-grow: 1;
+}
+@include pine-placeholder-ns('pine', 'column-item', 'no-shrink') {
+	flex-shrink: 0;
+}
+@include pine-placeholder-ns('pine', 'column-item', 'basis-zero-percent') {
+	flex-basis: 0%;
+	// #NOTE: Про "0%" смотри заметку в row.
+}
+@include pine-placeholder-extend-ns('pine', 'column-item', 'basis-initial', 'pine', 'column-item', 'basis-zero-percent');
+@include pine-placeholder-ns('pine', 'column-item', 'basis-auto') {
+	flex-basis: auto;
+}
+@include pine-placeholder-ns('pine', 'column-item', 'left') {
+	align-self: flex-start;
+}
+@include pine-placeholder-ns('pine', 'column-item', 'center') {
+	align-self: center;
+}
+@include pine-placeholder-ns('pine', 'column-item', 'safe-center') {
+	align-self: safe center;
+}
+@include pine-placeholder-ns('pine', 'column-item', 'stretch') {
+	align-self: stretch;
+}
+@include pine-placeholder-ns('pine', 'column-item', 'right') {
+	align-self: flex-end;
+}
+@include pine-placeholder-ns('pine', 'column-item', 'clip') {
+	overflow: hidden;
+}
+
+// Псевдоним "col-item"
+@include pine-placeholder-extend-ns('pine', 'col-item', 'default', 'pine', 'column-item');
+@each $size in $pine-column--item-gap-sizes {
+	$size: pine-safe($size);
+	@include pine-placeholder-extend-ns('pine', 'col-item', 'margin-#{$size}', 'pine', 'column-item', 'margin-#{$size}', true);
+	@include pine-placeholder-extend-ns('pine', 'col-item', 'margin-#{$size}a', 'pine', 'column-item', 'margin-#{$size}a', true);
+}
+@include pine-placeholder-extend-ns('pine', 'col-item', 'fill', 'pine', 'column-item', 'fill');
+@include pine-placeholder-extend-ns('pine', 'col-item', 'no-shrink', 'pine', 'column-item', 'no-shrink');
+@include pine-placeholder-extend-ns('pine', 'col-item', 'left', 'pine', 'column-item', 'left');
+@include pine-placeholder-extend-ns('pine', 'col-item', 'center', 'pine', 'column-item', 'center');
+@include pine-placeholder-extend-ns('pine', 'col-item', 'safe-center', 'pine', 'column-item', 'safe-center');
+@include pine-placeholder-extend-ns('pine', 'col-item', 'stretch', 'pine', 'column-item', 'stretch');
+@include pine-placeholder-extend-ns('pine', 'col-item', 'right', 'pine', 'column-item', 'right');
+@include pine-placeholder-extend-ns('pine', 'col-item', 'clip', 'pine', 'column-item', 'clip');

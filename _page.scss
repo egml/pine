@@ -1,0 +1,65 @@
+//
+//  ██████   █████   ██████  ███████
+//  ██   ██ ██   ██ ██       ██
+//  ██████  ███████ ██   ███ █████
+//  ██      ██   ██ ██    ██ ██
+//  ██      ██   ██  ██████  ███████
+//  
+//  #page
+//  
+//  Чтобы подключить `page` надо до этого подключить `holy-grail`.
+// 
+//  Разметка для `page`:
+//  
+//  <page-parent>
+//  	<page-container>
+//  		<page-container-helper>
+//  			<page>
+//  				<page-header>
+//  					<page-header-content/>
+//  				</page-header>
+//  				<page-main>
+//  					<page-main-row>
+//  						<page-sidebar/>
+//  						<page-content>
+//  							<page-content-main/>
+//  							<page-content-side/>
+//  						</page-content>
+//  						<page-sidebar/>
+//  					</page-main-row>
+//  				</page-main>
+//  				<page-footer>
+//  					<page-footer-content/>
+//  				</page-footer>
+//  			</page>
+//  		</page-container-helper>
+//  	</page-container>
+//  </page-parent>
+//  
+
+// 
+//  Применяется для элементов, у которых ширина не меняет размер, она
+//  фиксированная, например "page-row-content":
+//  ```
+//  	@include pine-placeholder-ns('pine', 'page-width', 'fixed') {
+//  		max-width: pine-em(500);
+//  		min-width: pine-em(500);
+//  	}
+// 
+@include pine-placeholder-ns('pine', 'page-width', 'fixed') {
+	max-width: pine-em($pine-page--width);
+	min-width: pine-em($pine-page--width);
+}
+
+// 
+//  Применяется для внешней обертки, которая может менять ширину
+//  здесь важно, чтобы ширины была НЕ МЕНЬШЕ заданной ширины страницы, 
+//  то есть должен быть min-width. Пример использования:
+//  ```
+//  	@include pine-placeholder-ns('pine', 'page-width', 'outer') {
+//  		min-width: pine-em(500 + 50 * 2);
+//  	}
+// 
+@include pine-placeholder-ns('pine', 'page-width', 'outer') {
+	min-width: pine-em($pine-page--width + $pine-page--gutter * 2);
+}

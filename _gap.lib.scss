@@ -1,0 +1,316 @@
+//
+//   ██████   █████  ██████
+//  ██       ██   ██ ██   ██
+//  ██   ███ ███████ ██████
+//  ██    ██ ██   ██ ██
+//   ██████  ██   ██ ██
+//  
+//  #gap
+//
+$pine-gap--default-size: 20 !default;
+$pine-gap--sizes: $pine-gap--default-size !default;
+
+//
+//  ███    ███  ██████  ██████  ███████
+//  ████  ████ ██    ██ ██   ██ ██
+//  ██ ████ ██ ██    ██ ██   ██ ███████
+//  ██  ██  ██ ██    ██ ██   ██      ██
+//  ██      ██  ██████  ██████  ███████
+//  
+//  #mods
+//
+@mixin pine-gap--mods($ns, $class, $prefix: '', $sizes: $pine-gap--sizes, $default-size: $pine-gap--default-size, $edge: false, $default-edge-direction: 'column') {
+	$class-name: pine-name($class, $ns);
+	$prefix: pine-prefix($prefix);
+	
+	@include pine-gap--margin-mods($ns, $class, $prefix, $sizes, $default-size, $edge, $default-edge-direction);
+	@include pine-gap--padding-mods($ns, $class, $prefix, $sizes, $default-size, $edge, $default-edge-direction);
+	@include pine-gap--combine-mods($ns, $class, $prefix, $sizes, $default-size, $edge, $default-edge-direction);
+	
+}
+
+//
+//  ███    ███  █████  ██████   ██████  ██ ███    ██
+//  ████  ████ ██   ██ ██   ██ ██       ██ ████   ██
+//  ██ ████ ██ ███████ ██████  ██   ███ ██ ██ ██  ██
+//  ██  ██  ██ ██   ██ ██   ██ ██    ██ ██ ██  ██ ██
+//  ██      ██ ██   ██ ██   ██  ██████  ██ ██   ████
+//  
+//  ███    ███  ██████  ██████  ███████
+//  ████  ████ ██    ██ ██   ██ ██
+//  ██ ████ ██ ██    ██ ██   ██ ███████
+//  ██  ██  ██ ██    ██ ██   ██      ██
+//  ██      ██  ██████  ██████  ███████
+//  
+//  #margin #mods
+//
+@mixin pine-gap--margin-mods($ns, $class, $prefix: '', $sizes: $pine-gap--sizes, $default-size: $pine-gap--default-size, $edge: false, $default-edge-direction: 'column') {
+	@include pine-gap--type-mods($ns, $class, 'margin', $prefix, $sizes, $default-size, $edge, $default-edge-direction);
+}
+
+//
+//  ██████   █████  ██████  ██████  ██ ███    ██  ██████
+//  ██   ██ ██   ██ ██   ██ ██   ██ ██ ████   ██ ██
+//  ██████  ███████ ██   ██ ██   ██ ██ ██ ██  ██ ██   ███
+//  ██      ██   ██ ██   ██ ██   ██ ██ ██  ██ ██ ██    ██
+//  ██      ██   ██ ██████  ██████  ██ ██   ████  ██████
+//  
+//  ███    ███  ██████  ██████  ███████
+//  ████  ████ ██    ██ ██   ██ ██
+//  ██ ████ ██ ██    ██ ██   ██ ███████
+//  ██  ██  ██ ██    ██ ██   ██      ██
+//  ██      ██  ██████  ██████  ███████
+//  
+//  #padding #mods
+//
+@mixin pine-gap--padding-mods($ns, $class, $prefix: '', $sizes: $pine-gap--sizes, $default-size: $pine-gap--default-size, $edge: false, $default-edge-direction: 'column') {
+	@include pine-gap--type-mods($ns, $class, 'padding', $prefix, $sizes, $default-size, $edge, $default-edge-direction);
+}
+
+//
+//  ████████ ██    ██ ██████  ███████
+//     ██     ██  ██  ██   ██ ██
+//     ██      ████   ██████  █████
+//     ██       ██    ██      ██
+//     ██       ██    ██      ███████
+//  
+//  ███    ███  ██████  ██████  ███████
+//  ████  ████ ██    ██ ██   ██ ██
+//  ██ ████ ██ ██    ██ ██   ██ ███████
+//  ██  ██  ██ ██    ██ ██   ██      ██
+//  ██      ██  ██████  ██████  ███████
+//  
+//  #type #mods
+//
+@mixin pine-gap--type-mods($ns, $class, $type: 'margin', $prefix: '', $sizes: $pine-gap--sizes, $default-size: $pine-gap--default-size, $edge: false, $default-edge-direction: 'column') {
+	$class-name: pine-name($class, $ns);
+	$prefix: pine-prefix($prefix);
+	
+	@if $default-size {
+		$default-size-safe: pine-safe($default-size);
+		&.#{$class-name}--#{$prefix}#{$type} {
+			@include pine-extend-ns('pine', 'gap', '#{$type}-#{$default-size-safe}');
+			@if $edge {
+				@if $default-edge-direction == 'row' {
+					@if $type == 'margin' {
+						@include pine-edge--margin-row-mods($ns, $class);
+					} @else {
+						@include pine-edge--padding-row-mods($ns, $class);
+					}
+				}
+				@if $default-edge-direction == 'column' {
+					@if $type == 'margin' {
+						@include pine-edge--margin-column-mods($ns, $class);
+					} @else {
+						@include pine-edge--padding-column-mods($ns, $class);
+					}
+				}
+			}
+			
+		}
+		&.#{$class-name}--#{$prefix}#{$type}-row {
+			@include pine-extend-ns('pine', 'gap', '#{$type}-row-#{$default-size-safe}');
+			@if $edge {
+				@if $type == 'margin' {
+					@include pine-edge--margin-row-mods($ns, $class);
+				} @else {
+					@include pine-edge--padding-row-mods($ns, $class);
+				}
+			}
+		}
+		&.#{$class-name}--#{$prefix}#{$type}-column {
+			@include pine-extend-ns('pine', 'gap', '#{$type}-column-#{$default-size-safe}');
+			@if $edge {
+				@if $type == 'margin' {
+					@include pine-edge--margin-column-mods($ns, $class);
+				} @else {
+					@include pine-edge--padding-column-mods($ns, $class);
+				}
+			}
+		}
+	}
+
+	@each $size in $sizes {
+		@if $size != $default-size {
+			$size: pine-safe($size);
+			&.#{$class-name}--#{$prefix}#{$type}-#{$size} {
+				@include pine-extend-ns('pine', 'gap', '#{$type}-#{$size}');
+				@if $edge {
+					@if $default-edge-direction == 'row' {
+						@if $type == 'margin' {
+							@include pine-edge--margin-row-mods($ns, $class);
+						} @else {
+							@include pine-edge--padding-row-mods($ns, $class);
+						}
+					}
+					@if $default-edge-direction == 'column' {
+						@if $type == 'margin' {
+							@include pine-edge--margin-column-mods($ns, $class);
+						} @else {
+							@include pine-edge--padding-column-mods($ns, $class);
+						}
+					}
+				}
+			}
+			&.#{$class-name}--#{$prefix}#{$type}-row-#{$size} {
+				@include pine-extend-ns('pine', 'gap', '#{$type}-row-#{$size}');
+				@if $edge {
+					@if $type == 'margin' {
+						@include pine-edge--margin-row-mods($ns, $class);
+					} @else {
+						@include pine-edge--padding-row-mods($ns, $class);
+					}
+				}
+			}
+			&.#{$class-name}--#{$prefix}#{$type}-column-#{$size} {
+				@include pine-extend-ns('pine', 'gap', '#{$type}-column-#{$size}');
+				@if $edge {
+					@if $type == 'margin' {
+						@include pine-edge--margin-column-mods($ns, $class);
+					} @else {
+						@include pine-edge--padding-column-mods($ns, $class);
+					}
+				}
+			}
+			
+			// абсолютные
+			&.#{$class-name}--#{$prefix}#{$type}-#{$size}a {
+				@include pine-extend-ns('pine', 'gap', '#{$type}-#{$size}a');
+				@if $edge {
+					@if $default-edge-direction == 'row' {
+						@if $type == 'margin' {
+							@include pine-edge--margin-row-mods($ns, $class);
+						} @else {
+							@include pine-edge--padding-row-mods($ns, $class);
+						}
+					}
+					@if $default-edge-direction == 'column' {
+						@if $type == 'margin' {
+							@include pine-edge--margin-column-mods($ns, $class);
+						} @else {
+							@include pine-edge--padding-column-mods($ns, $class);
+						}
+					}
+				}
+			}
+			&.#{$class-name}--#{$prefix}#{$type}-row-#{$size}a {
+				@include pine-extend-ns('pine', 'gap', '#{$type}-row-#{$size}a');
+				@if $edge {
+					@if $type == 'margin' {
+						@include pine-edge--margin-row-mods($ns, $class);
+					} @else {
+						@include pine-edge--padding-row-mods($ns, $class);
+					}
+				}
+			}
+			&.#{$class-name}--#{$prefix}#{$type}-column-#{$size}a {
+				@include pine-extend-ns('pine', 'gap', '#{$type}-column-#{$size}a');
+				@if $edge {
+					@if $type == 'margin' {
+						@include pine-edge--margin-column-mods($ns, $class);
+					} @else {
+						@include pine-edge--padding-column-mods($ns, $class);
+					}
+				}
+			}
+		}
+	}
+}
+
+//
+//   ██████  ██████  ███    ███ ██████  ██ ███    ██ ███████
+//  ██      ██    ██ ████  ████ ██   ██ ██ ████   ██ ██
+//  ██      ██    ██ ██ ████ ██ ██████  ██ ██ ██  ██ █████
+//  ██      ██    ██ ██  ██  ██ ██   ██ ██ ██  ██ ██ ██
+//   ██████  ██████  ██      ██ ██████  ██ ██   ████ ███████
+//  
+//  ███    ███  ██████  ██████  ███████
+//  ████  ████ ██    ██ ██   ██ ██
+//  ██ ████ ██ ██    ██ ██   ██ ███████
+//  ██  ██  ██ ██    ██ ██   ██      ██
+//  ██      ██  ██████  ██████  ███████
+//  
+//  #combine #mods
+//
+@mixin pine-gap--combine-mods($ns, $class, $prefix: '', $sizes: $pine-gap--sizes, $default-size: $pine-gap--default-size, $edge: false, $default-edge-direction: 'column') {
+	$class-name: pine-name($class, $ns);
+	$prefix: pine-prefix($prefix);
+	
+	@if $default-size {
+		$default-size-safe: pine-safe($default-size);
+		&.#{$class-name}--#{$prefix}combine {
+			@include pine-extend-ns('pine', 'gap', 'combine-#{$default-size-safe}');
+			@if $edge {
+				@if $default-edge-direction == 'row' {
+					@include pine-edge--padding-row-mods($ns, $class);
+				}
+				@if $default-edge-direction == 'column' {
+					@include pine-edge--margin-column-mods($ns, $class);
+				}
+			}
+		}
+		&.#{$class-name}--#{$prefix}combine-alt {
+			@include pine-extend-ns('pine', 'gap', 'combine-alt-#{$default-size-safe}');
+			@if $edge {
+				@if $default-edge-direction == 'row' {
+					@include pine-edge--margin-row-mods($ns, $class);
+				}
+				@if $default-edge-direction == 'column' {
+					@include pine-edge--padding-column-mods($ns, $class);
+				}
+			}
+		}
+	}
+
+	@each $size in $sizes {
+		@if $size != $default-size {
+			$size: pine-safe($size);
+			&.#{$class-name}--#{$prefix}combine-#{$size} {
+				@include pine-extend-ns('pine', 'gap', 'combine-#{$size}');
+				@if $edge {
+					@if $default-edge-direction == 'row' {
+						@include pine-edge--padding-row-mods($ns, $class);
+					}
+					@if $default-edge-direction == 'column' {
+						@include pine-edge--margin-column-mods($ns, $class);
+					}
+				}
+			}
+			&.#{$class-name}--#{$prefix}combine-alt-#{$size} {
+				@include pine-extend-ns('pine', 'gap', 'combine-alt-#{$size}');
+				@if $edge {
+					@if $default-edge-direction == 'row' {
+						@include pine-edge--margin-row-mods($ns, $class);
+					}
+					@if $default-edge-direction == 'column' {
+						@include pine-edge--padding-column-mods($ns, $class);
+					}
+				}
+			}
+
+			// абсолютные
+			&.#{$class-name}--#{$prefix}combine-#{$size}a {
+				@include pine-extend-ns('pine', 'gap', 'combine-#{$size}a');
+				@if $edge {
+					@if $default-edge-direction == 'row' {
+						@include pine-edge--padding-row-mods($ns, $class);
+					}
+					@if $default-edge-direction == 'column' {
+						@include pine-edge--margin-column-mods($ns, $class);
+					}
+				}
+			}
+			&.#{$class-name}--#{$prefix}combine-alt-#{$size}a {
+				@include pine-extend-ns('pine', 'gap', 'combine-alt-#{$size}a');
+				@if $edge {
+					@if $default-edge-direction == 'row' {
+						@include pine-edge--margin-row-mods($ns, $class);
+					}
+					@if $default-edge-direction == 'column' {
+						@include pine-edge--padding-column-mods($ns, $class);
+					}
+				}
+			}
+		}
+	}
+}

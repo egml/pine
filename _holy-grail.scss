@@ -1,0 +1,51 @@
+// 
+//  ██   ██  ██████  ██      ██    ██
+//  ██   ██ ██    ██ ██       ██  ██
+//  ███████ ██    ██ ██        ████
+//  ██   ██ ██    ██ ██         ██
+//  ██   ██  ██████  ███████    ██
+// 
+//   ██████  ██████   █████  ██ ██
+//  ██       ██   ██ ██   ██ ██ ██
+//  ██   ███ ██████  ███████ ██ ██
+//  ██    ██ ██   ██ ██   ██ ██ ██
+//   ██████  ██   ██ ██   ██ ██ ███████
+// 
+//  #holy #grail
+// 
+//  Структура Holy grail:
+//  
+//  - parent (/parent/parent)
+//  -- container
+//  --- container-helper
+//  ---- pillar
+//  ----- header
+//  ----- main
+//  ------ main-row
+//  ------- content
+//  ------- sidebar
+//  ----- footer
+// 
+@include pine-placeholder-extend-ns('pine', 'holy-grail', 'parent', 'pine', 'full-height');
+@include pine-placeholder-extend-ns('pine', 'holy-grail', 'container', 'pine', 'holy-grail', 'parent') {
+	display: table;
+	width: 100%;
+}
+@include pine-placeholder-extend-ns('pine', 'holy-grail', 'container-helper', 'pine', 'holy-grail', 'parent') {
+	display: table-cell;
+}
+@include pine-placeholder-ns('pine', 'holy-grail', 'pillar') {
+	overflow: hidden;
+}
+@include pine-placeholder-extend-ns('pine', 'holy-grail', 'pillar', 'pine', 'full-height');
+@include pine-placeholder-extend-ns('pine', 'holy-grail', 'pillar', 'pine', 'column');
+@include pine-placeholder-extend-ns('pine', 'holy-grail', 'row', 'pine', 'row', 'default' 'normal' 'center');
+@include pine-placeholder-extend-ns('pine', 'holy-grail', 'row-content', 'pine', 'row-item', 'default' 'fill');
+@include pine-placeholder-extend-ns('pine', 'holy-grail', 'header', 'pine', 'holy-grail', 'row');
+@include pine-placeholder-extend-ns('pine', 'holy-grail', 'main', 'pine', 'holy-grail', 'row');
+@include pine-placeholder-extend-ns('pine', 'holy-grail', 'main', 'pine', 'row-item', 'default' 'fill');
+@include pine-placeholder-extend-ns('pine', 'holy-grail', 'main-row', 'pine', 'row', 'default' 'normal');
+@include pine-placeholder-extend-ns('pine', 'holy-grail', 'main-row', 'pine', 'row-item', 'default' 'fill');
+@include pine-placeholder-extend-ns('pine', 'holy-grail', 'content', 'pine', 'row-item', 'default' 'fill');
+@include pine-placeholder-extend-ns('pine', 'holy-grail', 'sidebar', 'pine', 'row-item');
+@include pine-placeholder-extend-ns('pine', 'holy-grail', 'footer', 'pine', 'holy-grail', 'row');

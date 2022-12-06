@@ -1,0 +1,74 @@
+//
+//  ██████   █████   ██████  ███████
+//  ██   ██ ██   ██ ██       ██
+//  ██████  ███████ ██   ███ █████
+//  ██      ██   ██ ██    ██ ██
+//  ██      ██   ██  ██████  ███████
+//  
+//  #page
+//
+//  Чтобы подключить `page` надо до этого подключить `holy-grail`.
+// 
+//  Разметка для `page`:
+//  
+//  <page-parent>
+//  	<page-container>
+//  		<page-container-helper>
+//  			<page>
+//  				<page-header>
+//  					<page-header-content/>
+//  				</page-header>
+//  				<page-main>
+//  					<page-main-row>
+//  						<page-sidebar/>
+//  						<page-content>
+//  							<page-content-main/>
+//  							<page-content-side/>
+//  						</page-content>
+//  						<page-sidebar/>
+//  					</page-main-row>
+//  				</page-main>
+//  				<page-footer>
+//  					<page-footer-content/>
+//  				</page-footer>
+//  			</page>
+//  		</page-container-helper>
+//  	</page-container>
+//  </page-parent>
+//  
+$pine-page--width: 800 !default;
+$pine-page--gutter: 50 !default;
+
+@mixin pine-page--rules($ns: 'pine')
+{
+	@include pine-class-extend-ns($ns, 'page-parent', 'pine', 'holy-grail', 'parent');
+	@include pine-class-extend-ns($ns, 'page-container', 'pine', 'holy-grail', 'container');
+	@include pine-class-extend-ns($ns, 'page-container-helper', 'pine', 'holy-grail', 'container-helper');
+	@include pine-class-extend-ns($ns, 'page', 'pine', 'page-width', 'outer', true);
+	@include pine-class-extend-ns($ns, 'page', 'pine', 'holy-grail', 'pillar');
+
+	// 
+	//  page-row нужен, чтобы обеспечить возможностью создавать столько "строк" на 
+	//  странице, сколько нужно. Затем header и footer наследуются уже от row. 
+	//  Но класс сам по себе нужен, поэтому тут не плейсхолдер.
+	// 
+	@include pine-class-extend-ns($ns, 'page-row', 'pine', 'holy-grail', 'row');
+	@include pine-class-extend-ns($ns, 'page-row-content', 'pine', 'holy-grail', 'row-content');
+	@include pine-class-extend-ns($ns, 'page-row-content', 'pine', 'page-width', 'fixed', true);
+	@include pine-class-modificator-ns($ns, 'page-row-content', 'relative') {
+		position: relative;
+	}
+
+	@include pine-class-extend-ns($ns, 'page-header', 'pine', 'holy-grail', 'header');
+	@include pine-class-extend-ns($ns, 'page-header-content', $ns, 'page-row-content', 'default', true);
+	@include pine-class-extend-ns($ns, 'page-main', 'pine', 'holy-grail', 'main');
+	@include pine-class-extend-ns($ns, 'page-main-row', $ns, 'page-row-content', 'default', true);
+	@include pine-class-extend-ns($ns, 'page-main-row', 'pine', 'holy-grail', 'main-row');
+	@include pine-class-extend-ns($ns, 'page-content', 'pine', 'holy-grail', 'content');
+	@include pine-class-extend-ns($ns, 'page-content', 'pine', 'row', 'default' 'normal');
+	@include pine-class-extend-ns($ns, 'page-content-main', 'pine', 'holy-grail', 'content');
+	@include pine-class-extend-ns($ns, 'page-content-side', 'pine', 'holy-grail', 'sidebar');
+	@include pine-class-extend-ns($ns, 'page-sidebar', 'pine', 'holy-grail', 'sidebar');
+	@include pine-class-extend-ns($ns, 'page-footer', 'pine', 'holy-grail', 'footer');
+	@include pine-class-extend-ns($ns, 'page-footer-content', $ns, 'page-row-content', 'default', true);
+}

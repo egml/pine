@@ -1,0 +1,190 @@
+//
+//   ██████   █████  ██████
+//  ██       ██   ██ ██   ██
+//  ██   ███ ███████ ██████
+//  ██    ██ ██   ██ ██
+//   ██████  ██   ██ ██
+//  
+//  #gap
+//
+@each $size in $pine-gap--sizes {
+	$size-safe: pine-safe($size);
+	$size-em: pine-em($size);
+	$size-rem: pine-rem($size);
+
+	// Относительные значения
+	// ----------------------
+	// margin relative
+	@include pine-placeholder-ns('pine', 'gap', 'margin-left-#{$size-safe}') {
+		margin-left: $size-em;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'margin-right-#{$size-safe}') {
+		margin-right: $size-em;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'margin-top-#{$size-safe}') {
+		margin-top: $size-em;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'margin-bottom-#{$size-safe}') {
+		margin-bottom: $size-em;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'margin-row-#{$size-safe}') {
+		margin-left: $size-em;
+		margin-right: $size-em;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'margin-column-#{$size-safe}') {
+		margin-top: $size-em;
+		margin-bottom: $size-em;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'margin-#{$size-safe}') {
+		margin: $size-em;
+	}
+	@if $size == $pine-gap--default-size {
+		@include pine-placeholder-extend-ns('pine', 'gap', 'margin-left', 'pine', 'gap', 'margin-left-#{$size-safe}');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'margin-right', 'pine', 'gap', 'margin-right-#{$size-safe}');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'margin-top', 'pine', 'gap', 'margin-top-#{$size-safe}');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'margin-bottom', 'pine', 'gap', 'margin-bottom-#{$size-safe}');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'margin-row', 'pine', 'gap', 'margin-row-#{$size-safe}');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'margin-column', 'pine', 'gap', 'margin-column-#{$size-safe}');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'margin', 'pine', 'gap', 'margin-#{$size-safe}');
+	}
+
+	// padding relative
+	@include pine-placeholder-ns('pine', 'gap', 'padding-left-#{$size-safe}') {
+		padding-left: $size-em;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'padding-right-#{$size-safe}') {
+		padding-right: $size-em;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'padding-top-#{$size-safe}') {
+		padding-top: $size-em;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'padding-bottom-#{$size-safe}') {
+		padding-bottom: $size-em;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'padding-row-#{$size-safe}') {
+		padding-left: $size-em;
+		padding-right: $size-em;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'padding-column-#{$size-safe}') {
+		padding-top: $size-em;
+		padding-bottom: $size-em;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'padding-#{$size-safe}') {
+		padding: $size-em;
+	}
+	@if $size == $pine-gap--default-size {
+		@include pine-placeholder-extend-ns('pine', 'gap', 'padding-left', 'pine', 'gap', 'padding-left-#{$size-safe}');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'padding-right', 'pine', 'gap', 'padding-right-#{$size-safe}');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'padding-top', 'pine', 'gap', 'padding-top-#{$size-safe}');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'padding-bottom', 'pine', 'gap', 'padding-bottom-#{$size-safe}');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'padding-row', 'pine', 'gap', 'padding-row-#{$size-safe}');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'padding-column', 'pine', 'gap', 'padding-column-#{$size-safe}');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'padding', 'pine', 'gap', 'padding-#{$size-safe}');
+	}
+
+	// combine relative
+	@include pine-placeholder-ns('pine', 'gap', 'combine-#{$size-safe}') {
+		margin-top: $size-em;
+		margin-bottom: $size-em;
+		padding-left: $size-em;
+		padding-right: $size-em;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'combine-alt-#{$size-safe}') {
+		margin-left: $size-em;
+		margin-right: $size-em;
+		padding-top: $size-em;
+		padding-bottom: $size-em;
+	}
+	@if $size == $pine-gap--default-size {
+		@include pine-placeholder-extend-ns('pine', 'gap', 'combine', 'pine', 'gap', 'combine-#{$size-safe}');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'combine-alt', 'pine', 'gap', 'combine-alt-#{$size-safe}');
+	}
+
+	// Абсолютные значения
+	// -------------------
+	// margin absolute
+	@include pine-placeholder-ns('pine', 'gap', 'margin-left-#{$size-safe}a') {
+		margin-left: $size-rem;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'margin-right-#{$size-safe}a') {
+		margin-right: $size-rem;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'margin-top-#{$size-safe}a') {
+		margin-top: $size-rem;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'margin-bottom-#{$size-safe}a') {
+		margin-bottom: $size-rem;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'margin-row-#{$size-safe}a') {
+		margin-left: $size-rem;
+		margin-right: $size-rem;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'margin-column-#{$size-safe}a') {
+		margin-top: $size-rem;
+		margin-bottom: $size-rem;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'margin-#{$size-safe}a') {
+		margin: $size-rem;
+	}
+	@if $size == $pine-gap--default-size {
+		@include pine-placeholder-extend-ns('pine', 'gap', 'margin-left-a', 'pine', 'gap', 'margin-left-#{$size-safe}a');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'margin-right-a', 'pine', 'gap', 'margin-right-#{$size-safe}a');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'margin-top-a', 'pine', 'gap', 'margin-top-#{$size-safe}a');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'margin-bottom-a', 'pine', 'gap', 'margin-bottom-#{$size-safe}a');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'margin-row-a', 'pine', 'gap', 'margin-row-#{$size-safe}a');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'margin-column-a', 'pine', 'gap', 'margin-column-#{$size-safe}a');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'margin-a', 'pine', 'gap', 'margin-#{$size-safe}a');
+	}
+
+	// padding absolute
+	@include pine-placeholder-ns('pine', 'gap', 'padding-left-#{$size-safe}a') {
+		padding-left: $size-rem;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'padding-right-#{$size-safe}a') {
+		padding-right: $size-rem;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'padding-top-#{$size-safe}a') {
+		padding-top: $size-rem;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'padding-bottom-#{$size-safe}a') {
+		padding-bottom: $size-rem;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'padding-row-#{$size-safe}a') {
+		padding-left: $size-rem;
+		padding-right: $size-rem;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'padding-column-#{$size-safe}a') {
+		padding-top: $size-rem;
+		padding-bottom: $size-rem;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'padding-#{$size-safe}a') {
+		padding: $size-rem;
+	}
+	@if $size == $pine-gap--default-size {
+		@include pine-placeholder-extend-ns('pine', 'gap', 'padding-left-a', 'pine', 'gap', 'padding-left-#{$size-safe}a');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'padding-right-a', 'pine', 'gap', 'padding-right-#{$size-safe}a');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'padding-top-a', 'pine', 'gap', 'padding-top-#{$size-safe}a');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'padding-bottom-a', 'pine', 'gap', 'padding-bottom-#{$size-safe}a');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'padding-row-a', 'pine', 'gap', 'padding-row-#{$size-safe}a');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'padding-column-a', 'pine', 'gap', 'padding-column-#{$size-safe}a');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'padding-a', 'pine', 'gap', 'padding-#{$size-safe}a');
+	}
+
+	// combine absolute
+	@include pine-placeholder-ns('pine', 'gap', 'combine-#{$size-safe}a') {
+		margin-top: $size-rem;
+		margin-bottom: $size-rem;
+		padding-left: $size-rem;
+		padding-right: $size-rem;
+	}
+	@include pine-placeholder-ns('pine', 'gap', 'combine-alt-#{$size-safe}a') {
+		margin-left: $size-rem;
+		margin-right: $size-rem;
+		padding-top: $size-rem;
+		padding-bottom: $size-rem;
+	}
+	@if $size == $pine-gap--default-size {
+		@include pine-placeholder-extend-ns('pine', 'gap', 'combine-a', 'pine', 'gap', 'combine-#{$size-safe}a');
+		@include pine-placeholder-extend-ns('pine', 'gap', 'combine-alt-a', 'pine', 'gap', 'combine-alt-#{$size-safe}a');
+	}
+}

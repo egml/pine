@@ -1,0 +1,53 @@
+//
+//  ██████  ██████  ███████ ███████ ███████ ████████
+//  ██   ██ ██   ██ ██      ██      ██         ██
+//  ██████  ██████  █████   ███████ █████      ██
+//  ██      ██   ██ ██           ██ ██         ██
+//  ██      ██   ██ ███████ ███████ ███████    ██
+//
+//  ██████   █████  ███████ ██  ██████
+//  ██   ██ ██   ██ ██      ██ ██
+//  ██████  ███████ ███████ ██ ██
+//  ██   ██ ██   ██      ██ ██ ██
+//  ██████  ██   ██ ███████ ██  ██████
+//  
+//  #preset #basic
+//
+@import 'normalize-scss';
+
+// Переменные и миксины
+@import 'text.lib';
+@import 'core.lib';
+@import 'nullify.lib';
+@import 'normalize.lib';
+@import 'gap.lib';
+@import 'paragraph.lib';
+@import 'row.lib';
+@import 'column.lib';
+@import 'section.lib';
+@import 'edge.lib';
+@import 'input-placeholder.lib';
+@import 'full-height.lib';
+@import 'spacer.lib';
+@import 'width.lib';
+
+// Начало с normalize
+@if $pine-normalize--enabled {
+	@include normalize();
+	@include pine-normalize--global();
+}
+
+// Плейсхолдеры
+@import 'text';
+@import 'nullify';
+@import 'normalize';
+@import 'gap';
+@import 'paragraph';
+@import 'row';
+@import 'column';
+@import 'section';
+@import 'edge';
+@import 'input-placeholder';
+@import 'full-height';
+@import 'contain-margins';
+@import 'width';

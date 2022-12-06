@@ -1,0 +1,54 @@
+//
+//  ██████   █████  ██████   █████   ██████  ██████   █████  ██████  ██   ██
+//  ██   ██ ██   ██ ██   ██ ██   ██ ██       ██   ██ ██   ██ ██   ██ ██   ██
+//  ██████  ███████ ██████  ███████ ██   ███ ██████  ███████ ██████  ███████
+//  ██      ██   ██ ██   ██ ██   ██ ██    ██ ██   ██ ██   ██ ██      ██   ██
+//  ██      ██   ██ ██   ██ ██   ██  ██████  ██   ██ ██   ██ ██      ██   ██
+//  
+//  #paragraph
+//
+$pine-paragraph--default-gap-size: $pine-gap--default-size !default;
+$pine-paragraph--gap-sizes: $pine-gap--sizes !default;
+
+@mixin pine-paragraph--rules($ns: 'pine')
+{
+	@include pine-selector-ns($ns, 'paragraph') {
+		@include pine-extend-ns('pine', 'paragraph', 'default', $optional: true);
+		@include pine-paragraph--mods($ns, 'paragraph');
+	}
+}
+
+@mixin pine-paragraph--mods($ns: 'pine', $class: 'paragraph') {
+	$class-name: pine-name($class, $ns);
+	
+	@each $size in $pine-paragraph--gap-sizes {
+		$size: pine-safe($size);
+		&.#{$class-name}--margin-#{$size} {
+			@include pine-extend-ns('pine', 'paragraph', 'margin-#{$size}', $optional: true);
+		}
+		&.#{$class-name}--margin-#{$size}a {
+			@include pine-extend-ns('pine', 'paragraph', 'margin-#{$size}a', $optional: true);
+		}
+	}
+	&.#{$class-name}--no-margin {
+		margin: 0;
+	}
+	@include pine-edge--margin-column-mods($ns, $class);
+	&.#{$class-name}--center {
+		@include pine-extend-ns('pine', 'text', 'center');
+	}
+	@each $line-height in $pine-text--line-heights {
+		&.#{$class-name}--line-height-#{$line-height * 100} {
+			@include pine-extend-ns('pine', 'text', 'line-height-#{$line-height * 100}');
+		}
+	}
+	@each $size in $pine-text--sizes {
+		$size: pine-safe($size);
+		&.#{$class-name}--size-#{$size} {
+			@include pine-extend-ns('pine', 'text', 'size-#{$size}');
+		}
+		&.#{$class-name}--size-#{$size}a {
+			@include pine-extend-ns('pine', 'text', 'size-#{$size}a');
+		}
+	}
+}

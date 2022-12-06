@@ -1,0 +1,20 @@
+// 
+//  ███    ██  ██████  ██████  ███    ███  █████  ██      ██ ███████ ███████
+//  ████   ██ ██    ██ ██   ██ ████  ████ ██   ██ ██      ██    ███  ██
+//  ██ ██  ██ ██    ██ ██████  ██ ████ ██ ███████ ██      ██   ███   █████
+//  ██  ██ ██ ██    ██ ██   ██ ██  ██  ██ ██   ██ ██      ██  ███    ██
+//  ██   ████  ██████  ██   ██ ██      ██ ██   ██ ███████ ██ ███████ ███████
+//  
+//  #normalize
+// 
+
+@include pine-placeholder-extend-ns('pine', 'normalize', 'block', 'pine', 'nullify', 'block');
+@include pine-placeholder-ns('pine', 'normalize', 'focus') {
+	@include pine-normalize--styles('focus');
+}
+@include pine-placeholder-ns('pine', 'normalize', 'tap') {
+	@include pine-normalize--styles('tap');
+}
+@include pine-placeholder-ns('pine', 'normalize', 'svg') {
+	@include pine-normalize--styles('svg');
+}

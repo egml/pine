@@ -1,0 +1,122 @@
+//
+//  ██████   ██████  ██     ██
+//  ██   ██ ██    ██ ██     ██
+//  ██████  ██    ██ ██  █  ██
+//  ██   ██ ██    ██ ██ ███ ██
+//  ██   ██  ██████   ███ ███
+//  
+//  #row
+//
+@include pine-placeholder-ns('pine', 'row') {
+	@include pine-row--styles();
+}
+@include pine-placeholder-ns('pine', 'row', 'block') {
+	@include pine-row--styles('block');
+}
+@include pine-placeholder-ns('pine', 'row', 'inline') {
+	@include pine-row--styles('inline');
+}
+@include pine-placeholder-ns('pine', 'row', 'top') {
+	@include pine-row--styles('top');
+}
+@include pine-placeholder-ns('pine', 'row', 'normal') {
+	@include pine-row--styles('normal');
+}
+@include pine-placeholder-ns('pine', 'row', 'stretch') {
+	@include pine-row--styles('stretch');
+}
+@include pine-placeholder-ns('pine', 'row', 'middle') {
+	@include pine-row--styles('middle');
+}
+@include pine-placeholder-ns('pine', 'row', 'safe-middle') {
+	@include pine-row--styles('safe-middle');
+}
+@include pine-placeholder-ns('pine', 'row', 'bottom') {
+	@include pine-row--styles('bottom');
+}
+@include pine-placeholder-ns('pine', 'row', 'left') {
+	@include pine-row--styles('left');
+}
+@include pine-placeholder-ns('pine', 'row', 'center') {
+	@include pine-row--styles('center');
+}
+@include pine-placeholder-ns('pine', 'row', 'safe-center') {
+	@include pine-row--styles('safe-center');
+}
+@include pine-placeholder-ns('pine', 'row', 'right') {
+	@include pine-row--styles('right');
+}
+@include pine-placeholder-extend-ns('pine', 'row', 'margin', 'pine', 'paragraph', 'margin', true);
+@include pine-placeholder-extend-ns('pine', 'row', 'paragraph', 'pine', 'row', 'margin', true);
+@each $size in $pine-row--gap-sizes {
+	$size: pine-safe($size);
+	@include pine-placeholder-extend-ns('pine', 'row', 'margin-#{$size}', 'pine', 'gap', 'margin-column-#{$size}', true);
+	@include pine-placeholder-extend-ns('pine', 'row', 'margin-#{$size}a', 'pine', 'gap', 'margin-column-#{$size}a', true);
+}
+@include pine-placeholder-extend-ns('pine', 'row', 'edge', 'pine', 'edge', 'margin-column');
+@include pine-placeholder-ns('pine', 'row', 'wrap') {
+	@include pine-row--styles('wrap');
+}
+@include pine-placeholder-ns('pine', 'row', 'nowrap') {
+	@include pine-row--styles('nowrap');
+}
+@include pine-placeholder-extend-ns('pine', 'row', 'no-wrap', 'pine', 'row', 'nowrap');
+
+//
+//  ██ ████████ ███████ ███    ███
+//  ██    ██    ██      ████  ████
+//  ██    ██    █████   ██ ████ ██
+//  ██    ██    ██      ██  ██  ██
+//  ██    ██    ███████ ██      ██
+//  
+//  #item
+//
+
+@include pine-placeholder-ns('pine', 'row-item') {
+	flex: 0 1 auto;
+	// #NOTE: По вопросу дефолтного flex-basis смотри эпический батл test/flexbox-overflow-scroll. TL;DR: Для iOS Safari иногда нужно "0%", и вообще, это "initial value", как удалось вычислить через getComputedStyle. Надо это помнить.
+}
+@each $size in $pine-row--item-gap-sizes {
+	$size: pine-safe($size);
+	@include pine-placeholder-extend-ns('pine', 'row-item', 'margin-#{$size}', 'pine', 'gap', 'margin-right-#{$size}', true);
+	@include pine-placeholder-extend-ns('pine', 'row-item', 'margin-#{$size}', 'pine', 'edge', 'margin-row');
+	@include pine-placeholder-extend-ns('pine', 'row-item', 'margin-#{$size}a', 'pine', 'gap', 'margin-right-#{$size}a', true);
+	@include pine-placeholder-extend-ns('pine', 'row-item', 'margin-#{$size}a', 'pine', 'edge', 'margin-row');
+}
+@include pine-placeholder-ns('pine', 'row-item', 'fill') {
+	flex-grow: 1;
+}
+@include pine-placeholder-ns('pine', 'row-item', 'no-shrink') {
+	flex-shrink: 0;
+}
+@include pine-placeholder-ns('pine', 'row-item', 'basis-zero-percent') {
+	flex-basis: 0%;
+}
+@include pine-placeholder-extend-ns('pine', 'row-item', 'basis-initial', 'pine', 'row-item', 'basis-zero-percent');
+@include pine-placeholder-ns('pine', 'row-item', 'basis-auto') {
+	flex-basis: auto;
+}
+@include pine-placeholder-ns('pine', 'row-item', 'top') {
+	align-self: flex-start;
+}
+@include pine-placeholder-ns('pine', 'row-item', 'middle') {
+	align-self: center;
+}
+@include pine-placeholder-ns('pine', 'row-item', 'safe-middle') {
+	align-self: safe center;
+}
+@include pine-placeholder-ns('pine', 'row-item', 'stretch') {
+	align-self: stretch;
+}
+@include pine-placeholder-ns('pine', 'row-item', 'bottom') {
+	align-self: flex-end;
+}
+@include pine-placeholder-ns('pine', 'row-item', 'clip') {
+	overflow: hidden;
+}
+@include pine-placeholder-ns('pine', 'row-item', 'right') {
+	margin-left: auto;
+}
+@include pine-placeholder-ns('pine', 'row-item', 'left') {
+	margin-right: auto;
+}

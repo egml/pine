@@ -1,0 +1,133 @@
+//
+//  ████████ ███████ ██   ██ ████████
+//     ██    ██       ██ ██     ██
+//     ██    █████     ███      ██
+//     ██    ██       ██ ██     ██
+//     ██    ███████ ██   ██    ██
+//  
+//     ██      ██ ██████
+//     ██      ██ ██   ██
+//     ██      ██ ██████
+//     ██      ██ ██   ██
+//  ██ ███████ ██ ██████
+//  
+//  #text #lib
+//
+$pine-text--size: 16 !default;
+$pine-text--sizes: () !default;
+$pine-text--size-mount-point: 16 !default;
+$pine-text--size-html-element: 16 !default;
+$pine-text--family: sans-serif !default;
+$pine-text--family-alt: sans-serif !default;
+$pine-text--line-height: 1.5 !default;
+$pine-text--line-heights: 1 1.1 1.15 1.2 1.25 1.3 1.35 1.4 1.45 1.5 !default;
+$pine-text--color: #000 !default;
+$pine-text--color-muted: #999 !default;
+
+@mixin pine-text--rules($ns: 'pine') {
+	@include pine-selector-ns($ns, 'text') {
+		$class-name: pine-name('text', $ns);
+
+		// сгенерирует модификаторы вида: --size-<n>, --size-<n>r, --size-normal и --size-normal-r
+		@include pine-text--sizes-mods($ns, 'text', 'size');
+		
+		&.#{$class-name}--default {
+			@include pine-extend-ns('pine', 'text');
+		}
+		&.#{$class-name}--normal {
+			@include pine-extend-ns('pine', 'text', 'default' 'size-normal');
+		}
+		&.#{$class-name}--normal-a,
+		&.#{$class-name}--normal-absolute {
+			@include pine-extend-ns('pine', 'text', 'default' 'size-normal-absolute');
+		}
+		&.#{$class-name}--muted {
+			@include pine-extend-ns('pine', 'text', 'muted');
+		}
+		&.#{$class-name}--bold {
+			@include pine-extend-ns('pine', 'text', 'bold');
+		}
+		&.#{$class-name}--center {
+			@include pine-extend-ns('pine', 'text', 'center');
+		}
+		&.#{$class-name}--left {
+			@include pine-extend-ns('pine', 'text', 'left');
+		}
+		&.#{$class-name}--right {
+			@include pine-extend-ns('pine', 'text', 'right');
+		}
+		&.#{$class-name}--middle {
+			@include pine-extend-ns('pine', 'text', 'middle');
+		}
+		&.#{$class-name}--wrap {
+			@include pine-extend-ns('pine', 'text', 'wrap');
+		}
+		&.#{$class-name}--no-wrap {
+			@include pine-extend-ns('pine', 'text', 'no-wrap');
+		}
+		&.#{$class-name}--alt-font {
+			@include pine-extend-ns('pine', 'text', 'font-alt');
+		}
+		&.#{$class-name}--font-alt {
+			@include pine-extend-ns('pine', 'text', 'font-alt');
+		}
+		&.#{$class-name}--font-normal {
+			@include pine-extend-ns('pine', 'text', 'font-normal');
+		}
+		&.#{$class-name}--line-height-0 {
+			@include pine-extend-ns('pine', 'text', 'line-height-0');
+		}
+		@each $line-height in $pine-text--line-heights {
+			&.#{$class-name}--line-height-#{$line-height * 100} {
+				@include pine-extend-ns('pine', 'text', 'line-height-#{$line-height * 100}');
+			}
+		}
+		&.#{$class-name}--strikethrough {
+			@include pine-extend-ns('pine', 'text', 'strikethrough');
+		}
+		&.#{$class-name}--italic {
+			@include pine-extend-ns('pine', 'text', 'italic');
+		}
+		&.#{$class-name}--font-monospace,
+		&.#{$class-name}--monospace {
+			@include pine-extend-ns('pine', 'text', 'font-monospace');
+		}
+	}
+}
+
+//
+//  ███████ ██ ███████ ███████ ███████
+//  ██      ██    ███  ██      ██
+//  ███████ ██   ███   █████   ███████
+//       ██ ██  ███    ██           ██
+//  ███████ ██ ███████ ███████ ███████
+//  
+//  ███    ███  ██████  ██████  ███████
+//  ████  ████ ██    ██ ██   ██ ██
+//  ██ ████ ██ ██    ██ ██   ██ ███████
+//  ██  ██  ██ ██    ██ ██   ██      ██
+//  ██      ██  ██████  ██████  ███████
+//  
+//  #sizes #mods
+//
+@mixin pine-text--sizes-mods($ns: 'pine', $class: 'text', $mod-prefix: 'text-size', $sizes: $pine-text--sizes) {
+	$class-name: pine-name($class, $ns);
+	
+	@each $size in $sizes {
+		$size-safe: pine-safe($size);
+		@if ($size == $pine-text--size) {
+			&.#{$class-name}--#{$mod-prefix}-normal {
+				@include pine-extend-ns('pine', 'text', 'size-#{$size-safe}');
+			}
+			&.#{$class-name}--#{$mod-prefix}-normal-a {
+				@include pine-extend-ns('pine', 'text', 'size-#{$size-safe}a');
+			}
+		}
+		&.#{$class-name}--#{$mod-prefix}-#{$size-safe} {
+			@include pine-extend-ns('pine', 'text', 'size-#{$size-safe}');
+		}
+		&.#{$class-name}--#{$mod-prefix}-#{$size-safe}a {
+			@include pine-extend-ns('pine', 'text', 'size-#{$size-safe}a');
+		}
+	}
+}

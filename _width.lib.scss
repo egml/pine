@@ -1,0 +1,67 @@
+//
+//  ██     ██ ██ ██████  ████████ ██   ██
+//  ██     ██ ██ ██   ██    ██    ██   ██
+//  ██  █  ██ ██ ██   ██    ██    ███████
+//  ██ ███ ██ ██ ██   ██    ██    ██   ██
+//   ███ ███  ██ ██████     ██    ██   ██
+// 
+//     ██      ██ ██████
+//     ██      ██ ██   ██
+//     ██      ██ ██████
+//     ██      ██ ██   ██
+//  ██ ███████ ██ ██████
+//  
+//  #widths #lib
+//
+$pine-width--sizes-percent: 10 20 30 40 50 60 70 80 90 100 !default;
+$pine-width--sizes-px: () !default;
+
+@mixin pine-width--styles($mods: 'default')
+{
+	@each $mod in $mods {
+		@if $mod == 'default' {}
+		
+		@each $size in $pine-width--sizes-percent {
+			$size-safe: pine-safe($size);
+			@if 
+				$mod == '#{$size-safe}x' or
+				$mod == 'size-#{$size-safe}-percent'
+			{
+				width: $size + 0%;
+			}
+		}
+		
+		@each $size in $pine-width--sizes-px {
+			$size-safe: pine-safe($size);
+			@if 
+				$mod == $size-safe or 
+				$mod == 'size-#{$size-safe}-px'
+			{
+				width: pine-em($size);
+			}
+		}
+	}
+}
+
+@mixin pine-width--rules($ns: 'pine')
+{
+	@include pine-selector-ns($ns, 'width') {
+		$class-name: pine-name('width', $ns);
+		
+		@each $size in $pine-width--sizes-percent {
+			$size-safe: pine-safe($size);
+			&.#{$class-name}--#{$size-safe}x,
+			&.#{$class-name}--size-#{$size-safe}-percent {
+				@include pine-extend-ns('pine', 'width', 'size-#{$size-safe}-percent');
+			}
+		}
+		
+		@each $size in $pine-width--sizes-px {
+			$size-safe: pine-safe($size);
+			&.#{$class-name}--#{$size-safe},
+			&.#{$class-name}--size-#{$size-safe}-px {
+				@include pine-extend-ns('pine', 'width', 'size-#{$size-safe}-px');
+			}
+		}
+	}
+}

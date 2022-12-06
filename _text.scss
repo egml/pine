@@ -1,0 +1,129 @@
+//
+//  ████████ ███████ ██   ██ ████████
+//     ██    ██       ██ ██     ██
+//     ██    █████     ███      ██
+//     ██    ██       ██ ██     ██
+//     ██    ███████ ██   ██    ██
+//  
+//  #text
+//
+@include pine-placeholder-ns('pine', 'text') {
+	font-weight: 400;
+	font-family: $pine-text--family;
+	font-style: normal;
+	line-height: $pine-text--line-height;
+	color: $pine-text--color;
+	text-align: left;
+	text-decoration: none;
+	text-transform: none;
+	white-space: normal;
+}
+
+// #muted
+@include pine-placeholder-ns('pine', 'text', 'muted') {
+	color: $pine-text--color-muted;
+}
+
+// #bold
+@include pine-placeholder-ns('pine', 'text', 'bold') {
+	font-weight: 700;
+}
+
+// #color
+@include pine-placeholder-ns('pine', 'text', 'color-normal') {
+	color: $pine-text--color;
+}
+
+// #sizes
+@include pine-placeholder-ns('pine', 'text', 'size-root') {
+	font-size: pine-em($pine-text--size, $pine-text--size-mount-point);
+}
+@include pine-placeholder-ns('pine', 'text', 'size-normal') {
+	font-size: pine-em($pine-text--size);
+}
+@include pine-placeholder-ns('pine', 'text', 'size-normal-absolute') {
+	font-size: pine-rem($pine-text--size);
+}
+@include pine-placeholder-extend-ns('pine', 'text', 'size-normal-a', 'pine', 'text', 'size-normal-absolute');
+@each $size in $pine-text--sizes {
+	$size-safe: pine-safe($size);
+	@include pine-placeholder-ns('pine', 'text', 'size-#{$size-safe}') {
+		font-size: pine-em($size);
+	}
+	@include pine-placeholder-ns('pine', 'text', 'size-#{$size-safe}-absolute') {
+		font-size: pine-rem($size);
+	}
+	@include pine-placeholder-extend-ns('pine', 'text', 'size-#{$size-safe}a', 'pine', 'text', 'size-#{$size-safe}-absolute');
+}
+
+// #center
+@include pine-placeholder-ns('pine', 'text', 'center') {
+	text-align: center;
+}
+
+// #left
+@include pine-placeholder-ns('pine', 'text', 'left') {
+	text-align: left;
+}
+
+// #right
+@include pine-placeholder-ns('pine', 'text', 'right') {
+	text-align: right;
+}
+
+// #middle
+@include pine-placeholder-ns('pine', 'text', 'middle') {
+	vertical-align: middle;
+}
+
+// #wrap
+@include pine-placeholder-ns('pine', 'text', 'wrap') {
+	white-space: normal;
+}
+
+// #no-wrap
+@include pine-placeholder-ns('pine', 'text', 'no-wrap') {
+	white-space: nowrap;
+}
+@include pine-placeholder-extend-ns('pine', 'text', 'nowrap', 'pine', 'text', 'no-wrap');
+
+// #alt-font
+@include pine-placeholder-ns('pine', 'text', 'alt-font') {
+	font-family: $pine-text--family-alt;
+}
+
+// #font-alt
+@include pine-placeholder-extend-ns('pine', 'text', 'font-alt', 'pine', 'text', 'alt-font');
+
+// #font-normal
+@include pine-placeholder-ns('pine', 'text', 'font-normal') {
+	font-family: $pine-text--family;
+}
+
+// #line-height-*
+@include pine-placeholder-ns('pine', 'text', 'line-height-0') {
+	line-height: 0;
+}
+@each $line-height in $pine-text--line-heights {
+	@include pine-placeholder-ns('pine', 'text', 'line-height-#{$line-height * 100}') {
+		line-height: $line-height;
+	}
+}
+
+// #strikethrough #line-through
+@include pine-placeholder-ns('pine', 'text', 'strikethrough') {
+	text-decoration-line: line-through;
+}
+
+// #italic
+@include pine-placeholder-ns('pine', 'text', 'italic') {
+	font-style: italic;
+}
+
+// #font-monospace
+@include pine-placeholder-ns('pine', 'text', 'font-monospace') {
+	font-family: monospace;
+}
+
+// #monospace
+@include pine-placeholder-extend-ns('pine', 'text', 'monospace', 'pine', 'text', 'font-monospace');

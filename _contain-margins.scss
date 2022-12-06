@@ -1,0 +1,30 @@
+// 
+//   ██████  ██████  ███    ██ ████████  █████  ██ ███    ██
+//  ██      ██    ██ ████   ██    ██    ██   ██ ██ ████   ██
+//  ██      ██    ██ ██ ██  ██    ██    ███████ ██ ██ ██  ██
+//  ██      ██    ██ ██  ██ ██    ██    ██   ██ ██ ██  ██ ██
+//   ██████  ██████  ██   ████    ██    ██   ██ ██ ██   ████
+// 
+//  ███    ███  █████  ██████   ██████  ██ ███    ██ ███████
+//  ████  ████ ██   ██ ██   ██ ██       ██ ████   ██ ██
+//  ██ ████ ██ ███████ ██████  ██   ███ ██ ██ ██  ██ ███████
+//  ██  ██  ██ ██   ██ ██   ██ ██    ██ ██ ██  ██ ██      ██
+//  ██      ██ ██   ██ ██   ██  ██████  ██ ██   ████ ███████
+//  
+//  #contain #margins
+// 
+@include pine-placeholder-ns('pine', 'contain-margins') {
+	&::before,
+	&::after {
+		content: '';
+		display: table;
+	}
+}
+@include pine-placeholder-ns('pine', 'contain-margins', 'overflow-auto') {
+	overflow: auto;
+}
+@include pine-placeholder-ns('pine', 'contain-margins', 'overflow-hidden') {
+	overflow: hidden;
+}
+// псевдоним overflow -> overflow-hidden
+@include pine-placeholder-extend-ns('pine', 'contain-margins', 'overflow', 'pine', 'contain-margins', 'overflow-hidden');

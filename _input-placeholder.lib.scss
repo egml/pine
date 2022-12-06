@@ -1,0 +1,70 @@
+// 
+//  ██ ███    ██ ██████  ██    ██ ████████
+//  ██ ████   ██ ██   ██ ██    ██    ██
+//  ██ ██ ██  ██ ██████  ██    ██    ██
+//  ██ ██  ██ ██ ██      ██    ██    ██
+//  ██ ██   ████ ██       ██████     ██
+//  
+//  ██████  ██       █████   ██████ ███████
+//  ██   ██ ██      ██   ██ ██      ██
+//  ██████  ██      ███████ ██      █████  
+//  ██      ██      ██   ██ ██      ██
+//  ██      ███████ ██   ██  ██████ ███████
+// 
+//  ██   ██  ██████  ██      ██████  ███████ ██████
+//  ██   ██ ██    ██ ██      ██   ██ ██      ██   ██
+//  ███████ ██    ██ ██      ██   ██ █████   ██████
+//  ██   ██ ██    ██ ██      ██   ██ ██      ██   ██
+//  ██   ██  ██████  ███████ ██████  ███████ ██   ██
+// 
+//  #input #placeholder
+// 
+//  Вот так применять, когда надо указать свои стили:
+// 
+//  @include pine-input-placeholder--custom() {
+//  	// при этом нельзя использовать extend в содержимом, только чистые стили
+//  	// ...
+//  }
+// 
+@mixin pine-input-placeholder--styles($mods: 'default') {
+	@each $mod in $mods {
+		@if $mod == 'default' {
+			color: $pine-text--color-muted;
+			opacity: .9;
+		}
+	}
+}
+@mixin pine-input-placeholder--rules($media: null) {
+	@include pine-input-placeholder--custom(true) {
+		@include pine-extend-ns('pine', 'input-placeholder', 'default', $media);
+	}
+}
+@mixin pine-input-placeholder--custom($extend: false) {
+	// #CBFIX Chrome видите ли требует, чтобы правило с 
+	// плейсхолдером находилось отдельно от всех остальных,
+	// т.е. не перечислялось через запятую с другими кросс-
+	// браузерными правилами для плейсхолдера
+	&::-webkit-input-placeholder { // Chrome
+		@if $extend == false {
+			@content;
+		} @else {
+			@include pine-input-placeholder--styles();
+		}
+	}
+
+	&:-moz-placeholder { // Firefox 18-
+		@content;
+	}
+	&::-moz-placeholder { // Firefox 19+
+		@content;
+	}
+	&:-ms-input-placeholder { // IE
+		@content;
+	}
+	&::-ms-input-placeholder { // Edge
+		@content;
+	}
+	&::placeholder {
+		@content;
+	}
+}

@@ -1,0 +1,18 @@
+//
+//  ██████   █████  ██████   █████   ██████  ██████   █████  ██████  ██   ██
+//  ██   ██ ██   ██ ██   ██ ██   ██ ██       ██   ██ ██   ██ ██   ██ ██   ██
+//  ██████  ███████ ██████  ███████ ██   ███ ██████  ███████ ██████  ███████
+//  ██      ██   ██ ██   ██ ██   ██ ██    ██ ██   ██ ██   ██ ██      ██   ██
+//  ██      ██   ██ ██   ██ ██   ██  ██████  ██   ██ ██   ██ ██      ██   ██
+//  
+//  #paragraph
+//
+@include pine-placeholder-extend-ns('pine', 'paragraph', 'default', 'pine', 'text');
+@include pine-placeholder-extend-ns('pine', 'paragraph', 'default', 'pine', 'paragraph', 'margin', $optional: true);
+@include pine-placeholder-extend-ns('pine', 'paragraph', 'margin', 'pine', 'gap', 'margin-column-#{pine-safe($pine-paragraph--default-gap-size)}', $optional: true);
+
+@each $size in $pine-paragraph--gap-sizes {
+	$size: pine-safe($size);
+	@include pine-placeholder-extend-ns('pine', 'paragraph', 'margin-#{$size}', 'pine', 'gap', 'margin-column-#{$size}', $optional: true);
+	@include pine-placeholder-extend-ns('pine', 'paragraph', 'margin-#{$size}a', 'pine', 'gap', 'margin-column-#{$size}a', $optional: true);
+}

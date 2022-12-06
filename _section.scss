@@ -1,0 +1,20 @@
+//
+//  ███████ ███████  ██████ ████████ ██  ██████  ███    ██
+//  ██      ██      ██         ██    ██ ██    ██ ████   ██
+//  ███████ █████   ██         ██    ██ ██    ██ ██ ██  ██
+//       ██ ██      ██         ██    ██ ██    ██ ██  ██ ██
+//  ███████ ███████  ██████    ██    ██  ██████  ██   ████
+//  
+//  #section
+//
+@include pine-placeholder-ns('pine', 'section') {}
+@include pine-placeholder-extend-ns('pine', 'section', 'margin', 'pine', 'gap', 'margin-#{pine-safe($pine-section--default-gap-size)}', true);
+@include pine-placeholder-extend-ns('pine', 'section', 'padding', 'pine', 'gap', 'padding-#{pine-safe($pine-section--default-gap-size)}', true);
+
+@each $size in $pine-section--gap-sizes {
+	$size: pine-safe($size);
+	@include pine-placeholder-extend-ns('pine', 'section', 'margin-#{$size}', 'pine', 'gap', 'margin-#{$size}', true);
+	@include pine-placeholder-extend-ns('pine', 'section', 'margin-#{$size}a', 'pine', 'gap', 'margin-#{$size}a', true);
+	@include pine-placeholder-extend-ns('pine', 'section', 'padding-#{$size}', 'pine', 'gap', 'padding-#{$size}', true);
+	@include pine-placeholder-extend-ns('pine', 'section', 'padding-#{$size}a', 'pine', 'gap', 'padding-#{$size}a', true);
+}

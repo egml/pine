@@ -1,0 +1,41 @@
+// 
+//  ███    ██ ██    ██ ██      ██      ██ ███████ ██    ██
+//  ████   ██ ██    ██ ██      ██      ██ ██       ██  ██
+//  ██ ██  ██ ██    ██ ██      ██      ██ █████     ████
+//  ██  ██ ██ ██    ██ ██      ██      ██ ██         ██
+//  ██   ████  ██████  ███████ ███████ ██ ██         ██
+// 
+//  #nullify
+// 
+//  Что-то типа обнуления всех стилей и отображения в виде простого текста 
+//  с наследуемым цветом и начертанием или вообще пустого места, если речь 
+//  идет о блоке без отображаемого содержимого
+//
+
+// #block
+@include pine-placeholder-ns('pine', 'nullify', 'block') {
+	@include pine-nullify--block();
+}
+@include pine-placeholder-extend-ns('pine', 'nullify', 'block', 'pine', 'text');
+
+// #link
+@include pine-placeholder-extend-ns('pine', 'nullify', 'link', 'pine', 'text');
+
+// #button
+@include pine-placeholder-ns('pine', 'nullify', 'button') {
+	@include pine-vendor-prefix('appearance', none);
+}
+@include pine-placeholder-extend-ns('pine', 'nullify', 'button', 'pine', 'nullify', 'block');
+
+// #textinput
+@include pine-placeholder-ns('pine', 'nullify', 'textinput') {
+	@include pine-vendor-prefix('appearance', none);
+	outline: none; // Chrome делает outline при фокусе в текстовом поле
+
+	&::-webkit-clear-button,
+	&::-webkit-search-cancel-button {
+		@include pine-vendor-prefix('appearance', none);
+		margin: 0;
+	}
+}
+@include pine-placeholder-extend-ns('pine', 'nullify', 'textinput', 'pine', 'nullify', 'block');

@@ -1,0 +1,59 @@
+//
+//  ███████ ██████   █████   ██████ ███████ ██████
+//  ██      ██   ██ ██   ██ ██      ██      ██   ██
+//  ███████ ██████  ███████ ██      █████   ██████
+//       ██ ██      ██   ██ ██      ██      ██   ██
+//  ███████ ██      ██   ██  ██████ ███████ ██   ██
+//  
+//  #spacer
+//
+$pine-spacer--sizes: $pine-gap--sizes !default;
+
+@mixin pine-spacer--rules($ns: 'pine')
+{
+	@if length($pine-spacer--sizes) > 0 {
+		@include pine-placeholder-ns($ns, 'spacer', 'block', $all-media: false) {
+			display: block;
+		}
+		@include pine-placeholder-ns($ns, 'spacer', 'inline', $all-media: false) {
+			display: inline-block;
+		}
+		@include pine-class-extend-ns($ns, 'spacer', $ns, 'spacer', 'block', $extendable: false);
+		@include pine-class-mod-extend-ns($ns, 'spacer', 'block', $ns, 'spacer', 'block', $extendable: false);
+		@include pine-class-mod-extend-ns($ns, 'spacer', 'inline', $ns, 'spacer', 'inline', $extendable: false);
+		@include pine-class-mod-extend-ns($ns, 'spacer', 'horizontal', $ns, 'spacer', 'inline', $extendable: false);
+		@include pine-class-mod-extend-ns($ns, 'spacer', 'edge', 'pine', 'edge', 'column-margin', $extendable: false);
+	}
+
+	@each $size in $pine-spacer--sizes {
+		$size-safe: pine-safe($size);
+		@include pine-placeholder-ns($ns, 'spacer', '#{$size-safe}', $all-media: false) {
+			height: pine-em($size);
+		}
+		@include pine-placeholder-ns($ns, 'spacer', '#{$size-safe}a', $all-media: false) {
+			height: pine-rem($size);
+		}
+		@include pine-placeholder-ns($ns, 'spacer', 'margin-#{$size-safe}', $all-media: false) {
+			margin-top: pine-em($size);
+			margin-bottom: pine-em($size);
+		}
+		@include pine-placeholder-ns($ns, 'spacer', 'margin-#{$size-safe}a', $all-media: false) {
+			margin-top: pine-rem($size);
+			margin-bottom: pine-rem($size);
+		}
+		@include pine-class-mod-extend-ns($ns, 'spacer', '#{$size-safe}', $ns, 'spacer', '#{$size-safe}', $extendable: false);
+		@include pine-class-mod-extend-ns($ns, 'spacer', '#{$size-safe}a', $ns, 'spacer', '#{$size-safe}a', $extendable: false);
+		@include pine-class-mod-extend-ns($ns, 'spacer', 'margin-#{$size-safe}', $ns, 'spacer', 'margin-#{$size-safe}', $extendable: false);
+		@include pine-class-mod-extend-ns($ns, 'spacer', 'margin-#{$size-safe}a', $ns, 'spacer', 'margin-#{$size-safe}a', $extendable: false);
+		@include pine-class-mod-combine-ns($ns, 'spacer', 'block', '#{$size-safe}', $ns, 'spacer', '#{$size-safe}', $extendable: false);
+		@include pine-class-mod-combine-ns($ns, 'spacer', 'block', '#{$size-safe}a', $ns, 'spacer', '#{$size-safe}a', $extendable: false);
+		@include pine-class-mod-combine-ns($ns, 'spacer', 'inline', '#{$size-safe}', $extendable: false) {
+			height: auto;
+			width: pine-em($size);
+		}
+		@include pine-class-mod-combine-ns($ns, 'spacer', 'inline', '#{$size-safe}a', $extendable: false) {
+			height: auto;
+			width: pine-rem($size);
+		}
+	}
+}

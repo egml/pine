@@ -1,0 +1,88 @@
+//
+//  ███████ ██████   ██████  ███████
+//  ██      ██   ██ ██       ██
+//  █████   ██   ██ ██   ███ █████
+//  ██      ██   ██ ██    ██ ██
+//  ███████ ██████   ██████  ███████
+//  
+//  #edge
+//
+@mixin pine-edge--margin-row-mods($ns, $class) {
+	$class-name: pine-name($class, $ns);
+	
+	&.#{$class-name}--first {
+		@include pine-extend-ns('pine', 'edge', 'margin-row-first-pseudo');
+	}
+	&.#{$class-name}--first-force {
+		@include pine-extend-ns('pine', 'edge', 'margin-row-first');
+	}
+	&.#{$class-name}--last {
+		@include pine-extend-ns('pine', 'edge', 'margin-row-last-pseudo');
+	}
+	&.#{$class-name}--last-force {
+		@include pine-extend-ns('pine', 'edge', 'margin-row-last');
+	}
+	&.#{$class-name}--edge {
+		@include pine-extend-ns('pine', 'edge', 'margin-row');
+	}
+}
+
+@mixin pine-edge--margin-column-mods($ns, $class) {
+	$class-name: pine-name($class, $ns);
+	
+	&.#{$class-name}--first {
+		@include pine-extend-ns('pine', 'edge', 'margin-column-first-pseudo');
+	}
+	&.#{$class-name}--first-force {
+		@include pine-extend-ns('pine', 'edge', 'margin-column-first');
+	}
+	&.#{$class-name}--last {
+		@include pine-extend-ns('pine', 'edge', 'margin-column-last-pseudo');
+	}
+	&.#{$class-name}--last-force {
+		@include pine-extend-ns('pine', 'edge', 'margin-column-last');
+	}
+	&.#{$class-name}--edge {
+		@include pine-extend-ns('pine', 'edge', 'margin-column');
+	}
+}
+
+@mixin pine-edge--padding-row-mods($ns, $class) {
+	$class-name: pine-name($class, $ns);
+	
+	&.#{$class-name}--first {
+		@include pine-extend-ns('pine', 'edge', 'padding-row-first-pseudo');
+	}
+	&.#{$class-name}--first-force {
+		@include pine-extend-ns('pine', 'edge', 'padding-row-first');
+	}
+	&.#{$class-name}--last {
+		@include pine-extend-ns('pine', 'edge', 'padding-row-last-pseudo');
+	}
+	&.#{$class-name}--last-force {
+		@include pine-extend-ns('pine', 'edge', 'padding-row-last');
+	}
+	&.#{$class-name}--edge {
+		@include pine-extend-ns('pine', 'edge', 'padding-row');
+	}
+}
+
+@mixin pine-edge--padding-column-mods($ns, $class) {
+	$class-name: pine-name($class, $ns);
+	
+	&.#{$class-name}--first {
+		@include pine-extend-ns('pine', 'edge', 'padding-column-first-pseudo');
+	}
+	&.#{$class-name}--first-force {
+		@include pine-extend-ns('pine', 'edge', 'padding-column-first');
+	}
+	&.#{$class-name}--last {
+		@include pine-extend-ns('pine', 'edge', 'padding-column-last-pseudo');
+	}
+	&.#{$class-name}--last-force {
+		@include pine-extend-ns('pine', 'edge', 'padding-column-last');
+	}
+	&.#{$class-name}--edge {
+		@include pine-extend-ns('pine', 'edge', 'padding-column');
+	}
+}

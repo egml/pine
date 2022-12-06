@@ -1,0 +1,500 @@
+$ns: '' !default;
+$pine-ns: $ns !default;
+$pine-media-devices: () !default;
+$pine-media-breakpoints: () !default;
+$pine-root-container-name: 'app' !default;
+$pine-scale: 1 !default;
+$pine-design-scale: 1 !default;
+$pine-tags-textinput: 'textarea' 'input[type="text"]' 'select' !default;
+$pine-tags-button: 'button' 'input[type="button"]' 'input[type="submit"]' !default;
+$pine-tags-heading: 'h1' 'h2' 'h3' 'h4' 'h5' 'h6' !default;
+$pine-layer-top: 32767;
+$pine-layer-base: 0 !default;
+$pine-precision: 0 !default; // точность чисел в именах
+
+@function pine-str($value) {
+	@return if($value, quote(nth($value, 1)), '');
+}
+@function pine-name($name, $ns: $pine-ns) {
+	$name: pine-str($name);
+	@if str-length($name) == 0 {
+		@return '#{$ns}';
+	} @else {
+		@return '#{pine-prefix($ns)}#{$name}';
+	}
+}
+@function pine-name-add($name, $addage, $glue: '-') {
+	$name: pine-str($name);
+	$addage: pine-str($addage);
+	@if str-length($name) == 0 {
+		$glue: '';
+	}
+	@return '#{$name}#{$glue}#{$addage}';
+}
+@function pine-prefix($name, $glue: '-') {
+	$name: pine-str($name);
+	@return if(str-length($name) == 0, '', '#{$name}#{$glue}');
+}
+@function pine-suffix($name, $glue: '--') {
+	$name: pine-str($name);
+	@return if(str-length($name) == 0, '', '#{$glue}#{$name}');
+}
+@function pine-special-suffix($name) {
+	@return pine-suffix($name, '--_');
+}
+@function pine-modificator($name) {
+	@return if($name == 'default', '', pine-suffix($name));
+}
+@function pine-mod($name) {
+	@return pine-modificator($name);
+}
+@function pine-placeholder($class, $mod: 'default', $ns: $pine-ns) {
+	@return pine-placeholder-ns($ns, $class, $mod);
+}
+@function pine-placeholder-ns($ns, $class, $mod: 'default') {
+	$class-name: pine-name($class, $ns);
+	@if str-length($class-name) == 0 {
+		@error "$pine-ns должен быть определен для создания классов без имени";
+	} @else {
+		@return '%#{$class-name}#{pine-mod($mod)}';
+	}
+}
+@function pine-selector($class, $mods: (), $ns: $pine-ns) {
+	@return pine-selector-ns($ns, $class, $mods);
+}
+@function pine-selector-ns($ns, $class, $mods: ()) {
+	$class-name: pine-name($class, $ns);
+	@if str-length($class-name) == 0 {
+		@error "$pine-ns должен быть определен для создания классов без имени";
+	} @else {
+		$mods: pine-normalize-mods($mods);
+		@if length($mods) == 1 {
+			@return '.#{$class-name}';
+		} @else {
+			$mod-selector: '';
+			@each $mod in $mods {
+				@if $mod != 'default' {
+					$mod-suffix: pine-mod($mod);
+					$mod-selector: $mod-selector + '.#{$class-name}#{$mod-suffix}';
+				}
+			}
+			@return '.#{$class-name}#{$mod-selector}';
+		}
+	}
+}
+@function pine-normalize-mods($mods) {
+	@if index($mods, 'default') == null {
+		$mods: append($mods, 'default');
+	}
+	@return $mods;
+}
+@function pine-em($px, $base: $pine-text--size) {
+	@return $pine-scale * $px / $base + 0em;
+}
+@function pine-rem($px, $base: $pine-text--size-html-element) {
+	@return $pine-scale * $px / $base + 0rem;
+}
+@function pine-design-value($value) {
+	@return $value * $pine-design-scale;
+}
+@function pine-dv($value) {
+	@return pine-design-value($value);
+}
+@function pine-layer($offset: 0) {
+	$layer: $pine-layer-base + $offset;
+	@if $layer > $pine-layer-top {
+		@return $pine-layer-top;
+	} @else {
+		@return $layer;
+	}
+}
+@function pine-precision($value, $precision: $pine-precision) {
+	$order: 1;
+	@for $i from 0 to $precision {
+		$order: $order * 10;
+	}
+	@return round($value * $order) / $order;
+}
+@function pine-safe($value, $precision: $pine-precision) {
+	$order: 1;
+	@for $i from 0 to $precision {
+		$order: $order * 10;
+	}
+	@return round($value * $order);
+}
+
+//
+//  ███████ ██   ██ ████████ ███████ ███    ██ ██████
+//  ██       ██ ██     ██    ██      ████   ██ ██   ██
+//  █████     ███      ██    █████   ██ ██  ██ ██   ██
+//  ██       ██ ██     ██    ██      ██  ██ ██ ██   ██
+//  ███████ ██   ██    ██    ███████ ██   ████ ██████
+//  
+//  #extend
+//
+
+@mixin pine-extend($extender: null, $mods: 'default', $media: null, $optional: false, $ns: $pine-ns) {
+	@include pine-extend-ns($ns, $extender, $mods, $media, $optional);
+}
+@mixin pine-extend-ns($ns, $extender: null, $mods: 'default', $media: null, $optional: false) {
+	@if str-length(pine-str($extender)) != 0 {
+		$name: pine-name($extender, $ns);
+		$media: pine-special-suffix($media);
+		@each $mod in $mods {
+			@if $mod == 'default' {
+				$optional: true;
+			}
+			$mod: pine-mod($mod);
+			@if $optional {
+				@extend %#{$name}#{$mod}#{$media} !optional;
+			} @else {
+				@extend %#{$name}#{$mod}#{$media};
+			}
+		}
+	}
+}
+
+//
+//  ██████  ██       █████   ██████ ███████
+//  ██   ██ ██      ██   ██ ██      ██
+//  ██████  ██      ███████ ██      █████
+//  ██      ██      ██   ██ ██      ██
+//  ██      ███████ ██   ██  ██████ ███████
+//  
+//  ██   ██  ██████  ██      ██████  ███████ ██████
+//  ██   ██ ██    ██ ██      ██   ██ ██      ██   ██
+//  ███████ ██    ██ ██      ██   ██ █████   ██████
+//  ██   ██ ██    ██ ██      ██   ██ ██      ██   ██
+//  ██   ██  ██████  ███████ ██████  ███████ ██   ██
+//  
+//  #placeholder
+//
+
+@mixin pine-placeholder($name: null, $mod: 'default', $all-media: true) {
+	@include pine-placeholder-ns($pine-ns, $name, $mod, $all-media) { @content; }
+}
+@mixin pine-placeholder-ns($ns, $name: null, $mod: 'default', $all-media: true) {
+	@include pine-placeholder-extend-ns($ns, $name, $mod, $all-media: $all-media) { @content; }
+}
+@mixin pine-placeholder-extend($extendee, $extendee-mod, $extender: null, $extender-mods: 'default', $optional: false, $all-media: true) {
+	@include pine-placeholder-extend-ns($pine-ns, $extendee, $extendee-mod, $pine-ns, $extender, $extender-mods, $optional, $all-media) {
+		@content;
+	}
+}
+@mixin pine-placeholder-extend-ns($extendee-ns, $extendee, $extendee-mod, $extender-ns: $pine-ns, $extender: null, $extender-mods: 'default', $optional: false, $all-media: true) {
+	$placeholder: pine-placeholder($extendee, $extendee-mod, $extendee-ns);
+	#{$placeholder} {
+		@if str-length(pine-str($extender)) != 0 {
+			@include pine-extend-ns($extender-ns, $extender, $extender-mods, null, $optional);
+		}
+		@content;
+	}
+	@if $all-media {
+		@each $device in $pine-media-devices {
+			@include pine-media($device) {
+				$media-suffix: pine-special-suffix($device);
+				#{$placeholder}#{$media-suffix} {
+					@if str-length(pine-str($extender)) != 0 {
+						@include pine-extend-ns($extender-ns, $extender, $extender-mods, $device, $optional);
+					}
+					@content;
+				}
+			}
+		}
+	}
+}
+
+// 
+//  ███████ ███████ ██      ███████  ██████ ████████  ██████  ██████
+//  ██      ██      ██      ██      ██         ██    ██    ██ ██   ██
+//  ███████ █████   ██      █████   ██         ██    ██    ██ ██████
+//       ██ ██      ██      ██      ██         ██    ██    ██ ██   ██
+//  ███████ ███████ ███████ ███████  ██████    ██     ██████  ██   ██
+// 
+//  #selector
+// 
+
+@mixin pine-selector($name, $mods: (), $targets: null, $ns: $pine-ns) {
+	@include pine-selector-ns($ns, $name, $mods, $targets) { @content; }
+}
+@mixin pine-selector-ns($ns, $name, $mods: (), $targets: null) {
+	$selector: pine-selector-ns($ns, $name, $mods);
+	@if $targets {
+		#{join($targets, (), comma)} {
+			&#{$selector} {
+				@content;
+			}
+		}
+	} @else {
+		#{$selector} {
+			@content;
+		}
+	}
+}
+
+//
+//   ██████ ██       █████  ███████ ███████
+//  ██      ██      ██   ██ ██      ██
+//  ██      ██      ███████ ███████ ███████
+//  ██      ██      ██   ██      ██      ██
+//   ██████ ███████ ██   ██ ███████ ███████
+//  
+//  #class #modificator
+//
+
+@mixin pine-class($class: null, $targets: null, $extendable: true) {
+	@include pine-class-ns($pine-ns, $class, $targets, $extendable) { @content; }
+}
+@mixin pine-class-ns($ns, $class: null, $targets: null, $extendable: true) {
+	@include pine-class-modificator-ns($ns, $class, 'default', $targets, $extendable) { @content; }
+}
+@mixin pine-class-mod($class: null, $mod: 'default', $targets: null, $extendable: true) {
+	@include pine-class-modificator($class, $mod, $targets, $extendable) { @content; }
+}
+@mixin pine-class-modificator($class: null, $mod: 'default', $targets: null, $extendable: true) {
+	@include pine-class-modificator-ns($pine-ns, $class, $mod, $targets, $extendable) { @content; }
+}
+@mixin pine-class-modificator-ns($ns, $class: null, $mod: 'default', $targets: null, $extendable: true) {
+	@if $extendable {
+		@include pine-placeholder-ns($ns, $class, $mod) {
+			@content;
+		}
+		@include pine-selector-ns($ns, $class, $mod, $targets) {
+			@include pine-extend-ns($ns, $class, $mod, null, true); // optional потому что @content может быть пустой, соответственно плейсхолдер не отрендерится
+		}
+	} @else {
+		@include pine-selector-ns($ns, $class, $mod, $targets) {
+			@content;
+		}
+	}
+}
+@mixin pine-class-mod-ns($ns, $class: null, $mod: 'default', $targets: null, $extendable: true) {
+	@include pine-class-modificator-ns($ns, $class, $mod, $targets, $extendable) { @content; }
+}
+
+@mixin pine-class-extend($class: null, $extender: null, $extender-mods: 'default', $optional: false, $targets: null, $extendable: true) {
+	@include pine-class-extend-ns($pine-ns, $class, $pine-ns, $extender, $extender-mods, $optional, $targets, $extendable) { @content; }
+}
+@mixin pine-class-extend-ns($ns, $class: null, $extender-ns: $pine-ns, $extender: null, $extender-mods: 'default', $optional: false, $targets: null, $extendable: true) {
+	@include pine-class-modificator-extend-ns($ns, $class, 'default', $extender-ns, $extender, $extender-mods, $optional, $targets, $extendable) { @content; }
+}
+@mixin pine-class-modificator-extend($class: null, $mod: 'default', $extender: null, $extender-mods: 'default', $optional: false, $targets: null, $extendable: true) {
+	@include pine-class-modificator-extend-ns($pine-ns, $class, $mod, $pine-ns, $extender, $extender-mods, $optional, $targets, $extendable) { @content; }
+}
+@mixin pine-class-mod-extend($class: null, $mod: 'default', $extender: null, $extender-mods: 'default', $optional: false, $targets: null, $extendable: true) {
+	@include pine-class-modificator-extend($class, $mod, $extender, $extender-mods, $optional, $targets, $extendable) { @content; }
+}
+@mixin pine-class-modificator-extend-ns($ns, $class: null, $mod: 'default', $extender-ns: $pine-ns, $extender: null, $extender-mods: 'default', $optional: false, $targets: null, $extendable: true) {
+	@if $extendable {
+		@include pine-placeholder-extend-ns($ns, $class, $mod, $extender-ns, $extender, $extender-mods, $optional) {
+			@content;
+		}
+		@include pine-selector-ns($ns, $class, $mod, $targets) {
+			@include pine-extend-ns($ns, $class, $mod, null, true); // optional потому что @content может быть пустой, соответственно плейсхолдер не отрендерится
+		}
+	} @else {
+		@include pine-selector-ns($ns, $class, $mod, $targets) {
+			@include pine-extend-ns($extender-ns, $extender, $extender-mods, null, $optional);
+			@content;
+		}
+	}
+}
+@mixin pine-class-mod-extend-ns($ns, $class: null, $mod: 'default', $extender-ns: $pine-ns, $extender: null, $extender-mods: 'default', $optional: false, $targets: null, $extendable: true) {
+	@include pine-class-modificator-extend-ns($ns, $class, $mod, $extender-ns, $extender, $extender-mods, $optional, $targets, $extendable) { @content; }
+}
+
+@mixin pine-class-mod-combine($class: null, $mod-1: 'default', $mod-2: null, $extender: null, $extender-mods: 'default', $optional: false, $targets: null, $extendable: true) {
+	@include pine-class-mod-combine-ns($pine-ns, $class, $mod-1, $mod-2, $pine-ns, $extender, $extender-mods, $optional, $targets, $extendable) { @content; }
+}
+@mixin pine-class-mod-combine-ns($ns: $pine-ns, $class: null, $mod-1: 'default', $mod-2: null, $extender-ns: $pine-ns, $extender: null, $extender-mods: 'default', $optional: false, $targets: null, $extendable: true) {
+	$combined-mod: #{$mod-1}#{pine-mod($mod-2)};
+	@if $extendable {
+		@include pine-placeholder-extend-ns($ns, $class, $combined-mod, $extender, $extender-mods, $optional) {
+			@content;
+		}
+		@include pine-selector-ns($ns, $class, ($mod-1, $mod-2), $targets) {
+			@include pine-extend-ns($ns, $class, $combined-mod, null, true); // optional потому что @content может быть пустой, соответственно плейсхолдер не отрендерится
+		}
+	} @else {
+		@include pine-selector-ns($ns, $class, ($mod-1, $mod-2), $targets) {
+			@include pine-extend-ns($extender-ns, $extender, $extender-mods, null, $optional);
+			@content;
+		}
+	}
+}
+
+// 
+//   ██████ ██   ██ ██ ██      ██████
+//  ██      ██   ██ ██ ██      ██   ██
+//  ██      ███████ ██ ██      ██   ██
+//  ██      ██   ██ ██ ██      ██   ██
+//   ██████ ██   ██ ██ ███████ ██████
+// 
+//  #child
+// 
+
+@mixin pine-child($class: null, $mods: null, $ns: $pine-ns) {
+	@include pine-child-ns($ns, $class, $mods) { @content; }
+}
+@mixin pine-child-ns($ns, $class: null, $mods: null) {
+	@include pine-selector-ns($ns, $class) {
+		@include pine-extend-ns($ns, $class, $mods, $optional: true);
+		@content;
+	}
+}
+@mixin pine-direct-child($class: null, $mods: null, $ns: $pine-ns) {
+	@include pine-direct-child-ns($ns, $class, $mods) { @content; }
+}
+@mixin pine-direct-child-ns($ns, $class: null, $mods: null) {
+	> #{pine-selector-ns($ns, $class)} {
+		@include pine-extend-ns($ns, $class, $mods, $optional: true);
+		@content;
+	}
+}
+
+// 
+//  ███    ███ ███████ ██████  ██  █████
+//  ████  ████ ██      ██   ██ ██ ██   ██
+//  ██ ████ ██ █████   ██   ██ ██ ███████
+//  ██  ██  ██ ██      ██   ██ ██ ██   ██
+//  ██      ██ ███████ ██████  ██ ██   ██
+// 
+//  #media
+//  
+//  Данный подход с изменением значений границ пограничных пространств нужен, чтобы не было
+//  перехлеста и коллапса стилей соседствующих медиа-пространств.
+//  
+//  Прибавляем `em(.8, 16)` чтобы добиться правильного перехлеста пространств, 
+//  то есть если указано, что `mobile` до 380 px, то при 380 px будет отображаться `mobile`,
+//  а не следующее пространство. Раньше использовалось вычитание и это работало не правильно.
+//  
+//  Также прибавляем не 1px, переведенный в em, а 0.8px потому что в FF, например, одного 
+//  пикселя слишком много для правильного округления границы медиа-пространства. Нужно
+//  дальнейшее тестирование. Если 0.8 будет лагать, то нужно его поменять.
+//  
+
+@mixin pine-media($device) {
+	@if not index($pine-media-devices, $device) {
+		@error 'Название медиа-пространства указано неверно ("#{$device}"): такого нет в `$pine-media-devices`';
+	}
+	@if length($pine-media-devices) > 1 {
+		$i: index($pine-media-devices, $device);
+		$l: length($pine-media-devices);
+		@if length($pine-media-breakpoints) < 1 {
+			@error '`$pine-media-breakpoints` не определён';
+		}
+		@if $i == 1 {
+			@media (max-width: pine-em(nth(nth($pine-media-breakpoints, $i), 2), 16)) {
+				@content;
+			}
+		} @else if $i > 1 and $i < $l {
+			@media 
+				(min-width: pine-em(nth(nth($pine-media-breakpoints, $i - 1), 2), 16) + pine-em(.8, 16))
+				and 
+				(max-width: pine-em(nth(nth($pine-media-breakpoints, $i), 2), 16))
+			{
+				@content;
+			}
+		} @else if $i == $l {
+			@media (min-width: pine-em(nth(nth($pine-media-breakpoints, $i - 1), 2), 16) + pine-em(.8, 16)) {
+				@content;
+			}
+		}
+	}
+}
+
+// 
+//  ██    ██ ███████ ███    ██ ██████   ██████  ██████
+//  ██    ██ ██      ████   ██ ██   ██ ██    ██ ██   ██
+//  ██    ██ █████   ██ ██  ██ ██   ██ ██    ██ ██████
+//   ██  ██  ██      ██  ██ ██ ██   ██ ██    ██ ██   ██
+//    ████   ███████ ██   ████ ██████   ██████  ██   ██
+// 
+//  ██████  ██████  ███████ ███████ ██ ██   ██
+//  ██   ██ ██   ██ ██      ██      ██  ██ ██
+//  ██████  ██████  █████   █████   ██   ███
+//  ██      ██   ██ ██      ██      ██  ██ ██
+//  ██      ██   ██ ███████ ██      ██ ██   ██
+// 
+//  #vendor #prefix
+// 
+
+@mixin pine-vendor-prefix($prop, $value) {
+	@if $prop == keyframes {
+		@-webkit-keyframes #{$value} {
+			@content;
+		}
+		@keyframes #{$value} {
+			@content;
+		}
+	}
+	@if $prop == 'user-select' {
+		-webkit-user-select: $value;
+		-moz-user-select: $value;
+		-ms-user-select: $value;
+		user-select: $value;
+	}
+	@if $prop == 'appearance' {
+		-webkit-appearance: $value;
+		-moz-appearance: $value;
+		appearance: $value;
+	}
+	@if $prop == 'animation' {
+		-webkit-animation: $value;
+		animation: $value;
+	}
+	@if $prop == 'transform' {
+		-webkit-transform: $value;
+		transform: $value;
+	}
+	@if $prop == 'transform-origin' {
+		-webkit-transform-origin: $value;
+		transform-origin: $value;
+	}
+	@if $prop == 'transition' {
+		-webkit-transition: -webkit-#{$value};
+		transition: $value;
+	}
+}
+
+//
+//  ███████ ██    ██  ██████
+//  ██      ██    ██ ██
+//  ███████ ██    ██ ██   ███
+//       ██  ██  ██  ██    ██
+//  ███████   ████    ██████
+//  
+//  #svg
+//
+
+@mixin pine-svg($size: 20, $fill: none, $stroke-width: 0, $stroke-color: transparent, $viewbox-size: 100, $size-relative: true, $size-base: $pine-text--size) {
+	@if $size-relative == true {
+		width: pine-em($size, $size-base);
+		height: pine-em($size, $size-base);
+	} @else {
+		width: pine-rem($size, $size-base);
+		height: pine-rem($size, $size-base);
+	}
+	@if $fill != null {
+		fill: $fill;
+	}
+	@if $stroke-color != null {
+		stroke: $stroke-color;
+	}
+	@if $stroke-width != null {
+		stroke-width: $viewbox-size / $size * $stroke-width + px;
+	}
+}
+
+//
+//  ██       █████  ██    ██ ███████ ██████
+//  ██      ██   ██  ██  ██  ██      ██   ██
+//  ██      ███████   ████   █████   ██████
+//  ██      ██   ██    ██    ██      ██   ██
+//  ███████ ██   ██    ██    ███████ ██   ██
+//  
+//  #layer
+//
+@mixin pine-layer($offset: 0) {
+	z-index: pine-layer($offset);
+}
