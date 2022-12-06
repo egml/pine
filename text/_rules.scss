@@ -1,0 +1,103 @@
+// 
+//	████████ ███████ ██   ██ ████████
+//	   ██    ██       ██ ██     ██
+//	   ██    █████     ███      ██
+//	   ██    ██       ██ ██     ██
+//	   ██    ███████ ██   ██    ██
+//	
+//	#text
+// 
+//	Класс .text не имеет собственных свойств (свойств по умолчанию). Чтобы применить свойства 
+// 	по умолчанию, надо использовать модификатор --normal, или --normal-a. Это сделано для 
+// 	того, чтобы можно было применить только конкретные стили при использовании этого класса
+// 	на элеменете <div class="... text text--normal"> или <div class="... text text--muted">
+// 	без применения всех стилей по умолчанию для текста.
+// 
+@use '../core';
+@use 'config';
+
+@mixin rules($ns: 'pine') {
+	@include core.selector-ns($ns, 'text') {
+		$class-name: core.name('text', $ns);
+		
+		// сгенерирует модификаторы вида: --size-<n>, --size-<n>r, --size-normal и --size-normal-r
+		@include size-mods($ns, 'text', 'size'); 
+		
+		&.#{$class-name}--normal {
+			@include core.extend-ns('pine', 'text', 'default' 'size-normal');
+		}
+		&.#{$class-name}--normal-a,
+		&.#{$class-name}--normal-absolute {
+			@include core.extend-ns('pine', 'text', 'default' 'size-normal-absolute');
+		}
+		&.#{$class-name}--muted {
+			@include core.extend-ns('pine', 'text', 'muted');
+		}
+		&.#{$class-name}--bold {
+			@include core.extend-ns('pine', 'text', 'bold');
+		}
+		&.#{$class-name}--center {
+			@include core.extend-ns('pine', 'text', 'center');
+		}
+		&.#{$class-name}--middle {
+			@include core.extend-ns('pine', 'text', 'middle');
+		}
+		&.#{$class-name}--no-wrap {
+			@include core.extend-ns('pine', 'text', 'no-wrap');
+		}
+		&.#{$class-name}--alt-font {
+			@include core.extend-ns('pine', 'text', 'font-alt');
+		}
+		&.#{$class-name}--font-alt {
+			@include core.extend-ns('pine', 'text', 'font-alt');
+		}
+		&.#{$class-name}--font-normal {
+			@include core.extend-ns('pine', 'text', 'font-normal');
+		}
+		@each $line-height in config.$line-heights {
+			&.#{$class-name}--line-height-#{$line-height * 100} {
+				@include core.extend-ns('pine', 'text', 'line-height-#{$line-height * 100}');
+			}
+		}
+	}
+
+	strong {
+		@include core.extend-ns('pine', 'text', 'bold');
+	}
+}
+
+//
+//	███████ ██ ███████ ███████
+//	██      ██    ███  ██
+//	███████ ██   ███   █████
+//	     ██ ██  ███    ██
+//	███████ ██ ███████ ███████
+//	
+//	███    ███  ██████  ██████  ███████
+//	████  ████ ██    ██ ██   ██ ██
+//	██ ████ ██ ██    ██ ██   ██ ███████
+//	██  ██  ██ ██    ██ ██   ██      ██
+//	██      ██  ██████  ██████  ███████
+//	
+//	#size #mods
+//
+@mixin size-mods($ns: 'pine', $class: 'text', $mod-prefix: 'text-size', $sizes: config.$sizes) {
+	$class-name: core.name($class, $ns);
+	
+	@each $size in $sizes {
+		@if ($size == config.$size) {
+			&.#{$class-name}--#{$mod-prefix}-normal {
+				@include core.extend-ns('pine', 'text', 'size-#{$size}');
+			}
+			&.#{$class-name}--#{$mod-prefix}-normal-a {
+				@include core.extend-ns('pine', 'text', 'size-#{$size}a');
+			}
+		}
+		&.#{$class-name}--#{$mod-prefix}-#{$size} {
+			@include core.extend-ns('pine', 'text', 'size-#{$size}');
+		}
+		&.#{$class-name}--#{$mod-prefix}-#{$size}a {
+			@include core.extend-ns('pine', 'text', 'size-#{$size}a');
+		}
+	}
+}

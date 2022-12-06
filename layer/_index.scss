@@ -1,0 +1,25 @@
+//
+//	██       █████  ██    ██ ███████ ██████
+//	██      ██   ██  ██  ██  ██      ██   ██
+//	██      ███████   ████   █████   ██████
+//	██      ██   ██    ██    ██      ██   ██
+//	███████ ██   ██    ██    ███████ ██   ██
+//	
+//	#layer
+//
+@forward 'config' as layer-*;
+
+@use 'config' as *;
+
+@function layer($offset: 0) {
+	$layer: $base + $offset;
+	@if $layer > $top {
+		@return $top;
+	} @else {
+		@return $layer;
+	}
+}
+
+@mixin layer($offset: 0) {
+	z-index: layer($offset);
+}

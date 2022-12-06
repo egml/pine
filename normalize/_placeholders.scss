@@ -1,0 +1,25 @@
+// 
+//	███    ██  ██████  ██████  ███    ███  █████  ██      ██ ███████ ███████
+//	████   ██ ██    ██ ██   ██ ████  ████ ██   ██ ██      ██    ███  ██
+//	██ ██  ██ ██    ██ ██████  ██ ████ ██ ███████ ██      ██   ███   █████
+//	██  ██ ██ ██    ██ ██   ██ ██  ██  ██ ██   ██ ██      ██  ███    ██
+//	██   ████  ██████  ██   ██ ██      ██ ██   ██ ███████ ██ ███████ ███████
+//	
+//	#normalize
+// 
+@use '../core';
+@use 'styles';
+
+@mixin placeholders
+{
+	@include core.placeholder-extend-ns('pine', 'normalize', 'block', 'pine', 'nullify', 'block');
+	@include core.placeholder-ns('pine', 'normalize', 'focus') {
+		@include styles.focus();
+	}
+	@include core.placeholder-ns('pine', 'normalize', 'tap') {
+		@include styles.tap();
+	}
+	@include core.placeholder-ns('pine', 'normalize', 'svg') {
+		@include styles.svg();
+	}
+}

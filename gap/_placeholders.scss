@@ -1,0 +1,194 @@
+//
+//	 ██████   █████  ██████
+//	██       ██   ██ ██   ██
+//	██   ███ ███████ ██████
+//	██    ██ ██   ██ ██
+//	 ██████  ██   ██ ██
+//	
+//	#gap
+//
+@use '../core';
+@use 'config' as *;
+
+@mixin placeholders {
+	@each $size in $sizes {
+		$size-em: core.em($size);
+		$size-rem: core.rem($size);
+
+		// Относительные значения
+		// ----------------------
+		// margin relative
+		@include core.placeholder-ns('pine', 'gap', 'margin-left-#{$size}') {
+			margin-left: $size-em;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'margin-right-#{$size}') {
+			margin-right: $size-em;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'margin-top-#{$size}') {
+			margin-top: $size-em;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'margin-bottom-#{$size}') {
+			margin-bottom: $size-em;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'margin-row-#{$size}') {
+			margin-left: $size-em;
+			margin-right: $size-em;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'margin-column-#{$size}') {
+			margin-top: $size-em;
+			margin-bottom: $size-em;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'margin-#{$size}') {
+			margin: $size-em;
+		}
+		@if $size == $default-size {
+			@include core.placeholder-extend-ns('pine', 'gap', 'margin-left', 'pine', 'gap', 'margin-left-#{$size}');
+			@include core.placeholder-extend-ns('pine', 'gap', 'margin-right', 'pine', 'gap', 'margin-right-#{$size}');
+			@include core.placeholder-extend-ns('pine', 'gap', 'margin-top', 'pine', 'gap', 'margin-top-#{$size}');
+			@include core.placeholder-extend-ns('pine', 'gap', 'margin-bottom', 'pine', 'gap', 'margin-bottom-#{$size}');
+			@include core.placeholder-extend-ns('pine', 'gap', 'margin-row', 'pine', 'gap', 'margin-row-#{$size}');
+			@include core.placeholder-extend-ns('pine', 'gap', 'margin-column', 'pine', 'gap', 'margin-column-#{$size}');
+			@include core.placeholder-extend-ns('pine', 'gap', 'margin', 'pine', 'gap', 'margin-#{$size}');
+		}
+
+		// padding relative
+		@include core.placeholder-ns('pine', 'gap', 'padding-left-#{$size}') {
+			padding-left: $size-em;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'padding-right-#{$size}') {
+			padding-right: $size-em;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'padding-top-#{$size}') {
+			padding-top: $size-em;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'padding-bottom-#{$size}') {
+			padding-bottom: $size-em;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'padding-row-#{$size}') {
+			padding-left: $size-em;
+			padding-right: $size-em;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'padding-column-#{$size}') {
+			padding-top: $size-em;
+			padding-bottom: $size-em;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'padding-#{$size}') {
+			padding: $size-em;
+		}
+		@if $size == $default-size {
+			@include core.placeholder-extend-ns('pine', 'gap', 'padding-left', 'pine', 'gap', 'padding-left-#{$size}');
+			@include core.placeholder-extend-ns('pine', 'gap', 'padding-right', 'pine', 'gap', 'padding-right-#{$size}');
+			@include core.placeholder-extend-ns('pine', 'gap', 'padding-top', 'pine', 'gap', 'padding-top-#{$size}');
+			@include core.placeholder-extend-ns('pine', 'gap', 'padding-bottom', 'pine', 'gap', 'padding-bottom-#{$size}');
+			@include core.placeholder-extend-ns('pine', 'gap', 'padding-row', 'pine', 'gap', 'padding-row-#{$size}');
+			@include core.placeholder-extend-ns('pine', 'gap', 'padding-column', 'pine', 'gap', 'padding-column-#{$size}');
+			@include core.placeholder-extend-ns('pine', 'gap', 'padding', 'pine', 'gap', 'padding-#{$size}');
+		}
+
+		// combine relative
+		@include core.placeholder-ns('pine', 'gap', 'combine-#{$size}') {
+			margin-top: $size-em;
+			margin-bottom: $size-em;
+			padding-left: $size-em;
+			padding-right: $size-em;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'combine-alt-#{$size}') {
+			margin-left: $size-em;
+			margin-right: $size-em;
+			padding-top: $size-em;
+			padding-bottom: $size-em;
+		}
+		@if $size == $default-size {
+			@include core.placeholder-extend-ns('pine', 'gap', 'combine', 'pine', 'gap', 'combine-#{$size}');
+			@include core.placeholder-extend-ns('pine', 'gap', 'combine-alt', 'pine', 'gap', 'combine-alt-#{$size}');
+		}
+
+		// Абсолютные значения
+		// -------------------
+		// margin absolute
+		@include core.placeholder-ns('pine', 'gap', 'margin-left-#{$size}a') {
+			margin-left: $size-rem;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'margin-right-#{$size}a') {
+			margin-right: $size-rem;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'margin-top-#{$size}a') {
+			margin-top: $size-rem;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'margin-bottom-#{$size}a') {
+			margin-bottom: $size-rem;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'margin-row-#{$size}a') {
+			margin-left: $size-rem;
+			margin-right: $size-rem;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'margin-column-#{$size}a') {
+			margin-top: $size-rem;
+			margin-bottom: $size-rem;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'margin-#{$size}a') {
+			margin: $size-rem;
+		}
+		@if $size == $default-size {
+			@include core.placeholder-extend-ns('pine', 'gap', 'margin-left-a', 'pine', 'gap', 'margin-left-#{$size}a');
+			@include core.placeholder-extend-ns('pine', 'gap', 'margin-right-a', 'pine', 'gap', 'margin-right-#{$size}a');
+			@include core.placeholder-extend-ns('pine', 'gap', 'margin-top-a', 'pine', 'gap', 'margin-top-#{$size}a');
+			@include core.placeholder-extend-ns('pine', 'gap', 'margin-bottom-a', 'pine', 'gap', 'margin-bottom-#{$size}a');
+			@include core.placeholder-extend-ns('pine', 'gap', 'margin-row-a', 'pine', 'gap', 'margin-row-#{$size}a');
+			@include core.placeholder-extend-ns('pine', 'gap', 'margin-column-a', 'pine', 'gap', 'margin-column-#{$size}a');
+			@include core.placeholder-extend-ns('pine', 'gap', 'margin-a', 'pine', 'gap', 'margin-#{$size}a');
+		}
+
+		// padding absolute
+		@include core.placeholder-ns('pine', 'gap', 'padding-left-#{$size}a') {
+			padding-left: $size-rem;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'padding-right-#{$size}a') {
+			padding-right: $size-rem;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'padding-top-#{$size}a') {
+			padding-top: $size-rem;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'padding-bottom-#{$size}a') {
+			padding-bottom: $size-rem;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'padding-row-#{$size}a') {
+			padding-left: $size-rem;
+			padding-right: $size-rem;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'padding-column-#{$size}a') {
+			padding-top: $size-rem;
+			padding-bottom: $size-rem;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'padding-#{$size}a') {
+			padding: $size-rem;
+		}
+		@if $size == $default-size {
+			@include core.placeholder-extend-ns('pine', 'gap', 'padding-left-a', 'pine', 'gap', 'padding-left-#{$size}a');
+			@include core.placeholder-extend-ns('pine', 'gap', 'padding-right-a', 'pine', 'gap', 'padding-right-#{$size}a');
+			@include core.placeholder-extend-ns('pine', 'gap', 'padding-top-a', 'pine', 'gap', 'padding-top-#{$size}a');
+			@include core.placeholder-extend-ns('pine', 'gap', 'padding-bottom-a', 'pine', 'gap', 'padding-bottom-#{$size}a');
+			@include core.placeholder-extend-ns('pine', 'gap', 'padding-row-a', 'pine', 'gap', 'padding-row-#{$size}a');
+			@include core.placeholder-extend-ns('pine', 'gap', 'padding-column-a', 'pine', 'gap', 'padding-column-#{$size}a');
+			@include core.placeholder-extend-ns('pine', 'gap', 'padding-a', 'pine', 'gap', 'padding-#{$size}a');
+		}
+
+		// combine absolute
+		@include core.placeholder-ns('pine', 'gap', 'combine-#{$size}a') {
+			margin-top: $size-rem;
+			margin-bottom: $size-rem;
+			padding-left: $size-rem;
+			padding-right: $size-rem;
+		}
+		@include core.placeholder-ns('pine', 'gap', 'combine-alt-#{$size}a') {
+			margin-left: $size-rem;
+			margin-right: $size-rem;
+			padding-top: $size-rem;
+			padding-bottom: $size-rem;
+		}
+		@if $size == $default-size {
+			@include core.placeholder-extend-ns('pine', 'gap', 'combine-a', 'pine', 'gap', 'combine-#{$size}a');
+			@include core.placeholder-extend-ns('pine', 'gap', 'combine-alt-a', 'pine', 'gap', 'combine-alt-#{$size}a');
+		}
+	}
+}

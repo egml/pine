@@ -1,0 +1,50 @@
+//
+//	███████ ██████   ██████  ███████
+//	██      ██   ██ ██       ██
+//	█████   ██   ██ ██   ███ █████
+//	██      ██   ██ ██    ██ ██
+//	███████ ██████   ██████  ███████
+//	
+//	#edge
+//
+@use '../core';
+
+@mixin placeholders
+{
+	@include core.placeholder-ns('pine', 'edge', 'margin-row') {
+		&:first-child {
+			margin-left: 0;
+		}
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+	@include core.placeholder-extend-ns('pine', 'edge', 'row-margin', 'pine', 'edge', 'margin-row');
+	@include core.placeholder-ns('pine', 'edge', 'padding-row') {
+		&:first-child {
+			padding-left: 0;
+		}
+		&:last-child {
+			padding-right: 0;
+		}
+	}
+	@include core.placeholder-extend-ns('pine', 'edge', 'row-padding', 'pine', 'edge', 'padding-row');
+	@include core.placeholder-ns('pine', 'edge', 'margin-column') {
+		&:first-child {
+			margin-top: 0;
+		}
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
+	@include core.placeholder-extend-ns('pine', 'edge', 'column-margin', 'pine', 'edge', 'margin-column');
+	@include core.placeholder-ns('pine', 'edge', 'padding-column') {
+		&:first-child {
+			padding-top: 0;
+		}
+		&:last-child {
+			padding-bottom: 0;
+		}
+	}
+	@include core.placeholder-extend-ns('pine', 'edge', 'column-padding', 'pine', 'edge', 'padding-column');
+}

@@ -1,0 +1,24 @@
+//
+//	███████ ██████   █████   ██████ ███████ ██████
+//	██      ██   ██ ██   ██ ██      ██      ██   ██
+//	███████ ██████  ███████ ██      █████   ██████
+//	     ██ ██      ██   ██ ██      ██      ██   ██
+//	███████ ██      ██   ██  ██████ ███████ ██   ██
+//	
+//	#spacer
+//
+// @use '../core';
+// @use 'config';
+// @use 'sass:list';
+// 
+// @mixin placeholders
+// {
+// 	@if list.length(config.$sizes) > 0 {
+// 		@include core.placeholder-ns($ns, 'spacer', 'block', $all-media: false) {
+// 			display: block;
+// 		}
+// 		@include core.placeholder-ns($ns, 'spacer', 'inline', $all-media: false) {
+// 			display: inline-block;
+// 		}
+// 	}
+// }

@@ -1,0 +1,38 @@
+//
+//	██████   █████  ██████   █████   ██████  ██████   █████  ██████  ██   ██
+//	██   ██ ██   ██ ██   ██ ██   ██ ██       ██   ██ ██   ██ ██   ██ ██   ██
+//	██████  ███████ ██████  ███████ ██   ███ ██████  ███████ ██████  ███████
+//	██      ██   ██ ██   ██ ██   ██ ██    ██ ██   ██ ██   ██ ██      ██   ██
+//	██      ██   ██ ██   ██ ██   ██  ██████  ██   ██ ██   ██ ██      ██   ██
+//	
+//	#paragraph
+//
+@use '../core';
+@use 'config' as *;
+
+@mixin rules($ns: 'pine')
+{
+	p, .#{core.name('paragraph', $ns)} {
+		@include core.extend-ns('pine', 'paragraph', 'default', $optional: true);
+		@include mods($ns, 'paragraph');
+	}
+}
+
+@mixin mods($ns: 'pine', $class: 'paragraph') {
+	$class-name: core.name($class, $ns);
+	
+	@each $size in $gap-sizes {
+		&.#{$class-name}--margin-#{$size} {
+			@include core.extend-ns('pine', 'paragraph', 'margin-#{$size}', $optional: true);
+		}
+		&.#{$class-name}--margin-#{$size}a {
+			@include core.extend-ns('pine', 'paragraph', 'margin-#{$size}a', $optional: true);
+		}
+	}
+	&.#{$class-name}--no-margin {
+		margin: 0;
+	}
+	&.#{$class-name}--edge {
+		@include core.extend-ns('pine', 'edge', 'margin-column');
+	}
+}

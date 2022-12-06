@@ -1,0 +1,29 @@
+//
+//	███████ ██    ██ ██      ██
+//	██      ██    ██ ██      ██
+//	█████   ██    ██ ██      ██
+//	██      ██    ██ ██      ██
+//	██       ██████  ███████ ███████
+//	
+//	██   ██ ███████ ██  ██████  ██   ██ ████████
+//	██   ██ ██      ██ ██       ██   ██    ██
+//	███████ █████   ██ ██   ███ ███████    ██
+//	██   ██ ██      ██ ██    ██ ██   ██    ██
+//	██   ██ ███████ ██  ██████  ██   ██    ██
+//	
+//	#full #height
+//
+@use '../core';
+
+@mixin rules($ns: 'pine')
+{
+	@include core.selector-ns($ns, 'html', 'full-height') {
+		@include core.extend-ns('pine', 'full-height');
+	}
+	@include core.selector-ns($ns, 'body', 'full-height') {
+		@include core.extend-ns('pine', 'full-height');
+	}
+	@include core.selector-ns($ns, core.$root-container-name, 'full-height') {
+		@include core.extend-ns('pine', 'full-height');
+	}
+}

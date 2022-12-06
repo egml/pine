@@ -1,0 +1,63 @@
+// 
+//	██ ███    ██ ██████  ██    ██ ████████
+//	██ ████   ██ ██   ██ ██    ██    ██
+//	██ ██ ██  ██ ██████  ██    ██    ██
+//	██ ██  ██ ██ ██      ██    ██    ██
+//	██ ██   ████ ██       ██████     ██
+//	
+//  ██████  ██       █████   ██████ ███████
+//  ██   ██ ██      ██   ██ ██      ██
+//  ██████  ██      ███████ ██      █████  
+//  ██      ██      ██   ██ ██      ██
+//  ██      ███████ ██   ██  ██████ ███████
+// 
+//  ██   ██  ██████  ██      ██████  ███████ ██████
+//  ██   ██ ██    ██ ██      ██   ██ ██      ██   ██
+//  ███████ ██    ██ ██      ██   ██ █████   ██████
+//  ██   ██ ██    ██ ██      ██   ██ ██      ██   ██
+//  ██   ██  ██████  ███████ ██████  ███████ ██   ██
+// 
+//	#input #placeholder
+// 
+@use '../core';
+@use '../text';
+
+@mixin _style {
+	color: text.$color-muted;
+	opacity: .9;
+}
+@mixin placeholders {
+	@include core.placeholder-ns('pine', 'input-placeholder') {
+		@include _style;
+	}
+}
+@mixin crossbrowser {
+	// #CBFIX Chrome видите ли требует, чтобы правило с 
+	// плейсхолдером находилось отдельно от всех остальных,
+	// т.е. не перечислялось через запятую с другими кросс-
+	// браузерными правилами для плейсхолдера
+	&::-webkit-input-placeholder { // Chrome
+		@include _style;
+	}
+	
+	&:-moz-placeholder { // Firefox 18-
+		@content;
+	}
+	&::-moz-placeholder { // Firefox 19+
+		@content;
+	}
+	&:-ms-input-placeholder { // IE
+		@content;
+	}
+	&::-ms-input-placeholder { // Edge
+		@content;
+	}
+	&::placeholder {
+		@content;
+	}
+}
+@mixin style($media: null) {
+	@include crossbrowser {
+		@include core.extend-ns('pine', 'input-placeholder', 'default', $media);
+	}
+}

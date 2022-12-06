@@ -1,0 +1,13 @@
+//
+//	██████   ██████  ██     ██
+//	██   ██ ██    ██ ██     ██
+//	██████  ██    ██ ██  █  ██
+//	██   ██ ██    ██ ██ ███ ██
+//	██   ██  ██████   ███ ███
+//	
+//	#row
+//
+@use '../gap/config' as gap;
+
+$gap-sizes: gap.$sizes !default;
+$item-gap-sizes: gap.$sizes !default;

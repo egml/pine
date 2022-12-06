@@ -1,0 +1,52 @@
+// 
+//	███    ██ ██    ██ ██      ██      ██ ███████ ██    ██
+//	████   ██ ██    ██ ██      ██      ██ ██       ██  ██
+//	██ ██  ██ ██    ██ ██      ██      ██ █████     ████
+//	██  ██ ██ ██    ██ ██      ██      ██ ██         ██
+//	██   ████  ██████  ███████ ███████ ██ ██         ██
+// 
+//	#nullify
+// 
+//	Что-то типа обнуления всех стилей и отображения в виде простого текста 
+//	с наследуемым цветом и начертанием или вообще пустого места, если речь 
+//	идет о блоке без отображаемого содержимого
+//
+
+@use '../core';
+
+@mixin placeholders
+{
+	// #block
+	@include core.placeholder-ns('pine', 'nullify', 'block') {
+		padding: 0;
+		margin: 0;
+		height: auto;
+		width: auto;
+		background: transparent;
+		border: 0;
+		border-radius: 0; // Fennec использует border-radius по умолчанию, надо сбрасывать
+	}
+
+	// #link
+	@include core.placeholder-extend-ns('pine', 'nullify', 'link', 'pine', 'text');
+
+	// #button
+	@include core.placeholder-ns('pine', 'nullify', 'button') {
+		@include core.vendor-prefix('appearance', none);
+	}
+	@include core.placeholder-extend-ns('pine', 'nullify', 'button', 'pine', 'nullify', 'block');
+	@include core.placeholder-extend-ns('pine', 'nullify', 'button', 'pine', 'text'); // потому что у браузера есть свои стили для текста внутри кнопки и normalize тут не помогает
+
+	// #textinput
+	@include core.placeholder-ns('pine', 'nullify', 'textinput') {
+		@include core.vendor-prefix('appearance', none);
+		outline: none; // Chrome делает outline при фокусе в текстовом поле
+		
+		&::-webkit-clear-button,
+		&::-webkit-search-cancel-button {
+			@include core.vendor-prefix('appearance', none);
+			margin: 0;
+		}
+	}
+	@include core.placeholder-extend-ns('pine', 'nullify', 'textinput', 'pine', 'nullify', 'block');
+}

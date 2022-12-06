@@ -1,0 +1,104 @@
+//
+//	████████ ███████ ██   ██ ████████
+//	   ██    ██       ██ ██     ██
+//	   ██    █████     ███      ██
+//	   ██    ██       ██ ██     ██
+//	   ██    ███████ ██   ██    ██
+//	
+//	#text
+//
+@use '../core';
+@use 'config';
+
+@mixin placeholders
+{
+	@include core.placeholder-ns('pine', 'text') {
+		// font-size: 1em;
+		font-weight: 400;
+		font-family: config.$family;
+		font-style: normal;
+		line-height: config.$line-height;
+		color: config.$color;
+		text-align: left;
+		text-decoration: none;
+		text-transform: none;
+	}
+
+	// #muted
+	@include core.placeholder-ns('pine', 'text', 'muted') {
+		color: config.$color-muted;
+	}
+
+	// #bold
+	@include core.placeholder-ns('pine', 'text', 'bold') {
+		font-weight: 700;
+	}
+
+	// #color
+	@include core.placeholder-ns('pine', 'text', 'color-normal') {
+		color: config.$color;
+	}
+
+	// #sizes
+	@include core.placeholder-ns('pine', 'text', 'size-normal') {
+		font-size: core.em(config.$size);
+	}
+	@include core.placeholder-ns('pine', 'text', 'size-normal-absolute') {
+		font-size: core.rem(config.$size);
+	}
+	@include core.placeholder-extend-ns('pine', 'text', 'size-normal-a', 'pine', 'text', 'size-normal-absolute');
+	@each $size in config.$sizes {
+		@include core.placeholder-ns('pine', 'text', 'size-#{$size}') {
+			font-size: core.em($size);
+		}
+		@include core.placeholder-ns('pine', 'text', 'size-#{$size}-absolute') {
+			font-size: core.rem($size);
+		}
+		@include core.placeholder-extend-ns('pine', 'text', 'size-#{$size}a', 'pine', 'text', 'size-#{$size}-absolute');
+	}
+
+	// #center
+	@include core.placeholder-ns('pine', 'text', 'center') {
+		text-align: center;
+	}
+
+	// #left
+	@include core.placeholder-ns('pine', 'text', 'left') {
+		text-align: left;
+	}
+
+	// #right
+	@include core.placeholder-ns('pine', 'text', 'right') {
+		text-align: right;
+	}
+
+	// #middle
+	@include core.placeholder-ns('pine', 'text', 'middle') {
+		vertical-align: middle;
+	}
+
+	// #no-wrap
+	@include core.placeholder-ns('pine', 'text', 'no-wrap') {
+		white-space: nowrap;
+	}
+	@include core.placeholder-extend-ns('pine', 'text', 'nowrap', 'pine', 'text', 'no-wrap');
+
+	// #alt-font
+	@include core.placeholder-ns('pine', 'text', 'alt-font') {
+		font-family: config.$family-alt;
+	}
+
+	// #font-alt
+	@include core.placeholder-extend-ns('pine', 'text', 'font-alt', 'pine', 'text', 'alt-font');
+
+	// #font-normal
+	@include core.placeholder-ns('pine', 'text', 'font-normal') {
+		font-family: config.$family;
+	}
+
+	@each $line-height in config.$line-heights {
+		@include core.placeholder-ns('pine', 'text', 'line-height-#{$line-height * 100}') {
+			line-height: $line-height;
+		}
+	}
+}

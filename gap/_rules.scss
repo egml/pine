@@ -1,0 +1,98 @@
+//
+//	 ██████   █████  ██████
+//	██       ██   ██ ██   ██
+//	██   ███ ███████ ██████
+//	██    ██ ██   ██ ██
+//	 ██████  ██   ██ ██
+//	
+//	#gap
+//
+@use '../core';
+@use 'config' as *;
+
+@mixin mods($ns, $class, $prefix: '', $sizes: $sizes, $default-size: $default-size) {
+	$class-name: core.name($class, $ns);
+	$prefix: core.prefix($prefix);
+	
+	@if $default-size {
+		&.#{$class-name}--#{$prefix}margin {
+			@include core.extend-ns('pine', 'gap', 'margin-#{$default-size}');
+		}
+		&.#{$class-name}--#{$prefix}margin-row {
+			@include core.extend-ns('pine', 'gap', 'margin-row-#{$default-size}');
+		}
+		&.#{$class-name}--#{$prefix}margin-column {
+			@include core.extend-ns('pine', 'gap', 'margin-column-#{$default-size}');
+		}
+		&.#{$class-name}--#{$prefix}padding {
+			@include core.extend-ns('pine', 'gap', 'padding-#{$default-size}');
+		}
+		&.#{$class-name}--#{$prefix}padding-row {
+			@include core.extend-ns('pine', 'gap', 'padding-row-#{$default-size}');
+		}
+		&.#{$class-name}--#{$prefix}padding-column {
+			@include core.extend-ns('pine', 'gap', 'padding-column-#{$default-size}');
+		}
+		&.#{$class-name}--#{$prefix}combine {
+			@include core.extend-ns('pine', 'gap', 'combine-#{$default-size}');
+		}
+		&.#{$class-name}--#{$prefix}combine-alt {
+			@include core.extend-ns('pine', 'gap', 'combine-alt-#{$default-size}');
+		}
+	}
+
+	@each $size in $sizes {
+		@if $size != $default-size {
+			&.#{$class-name}--#{$prefix}margin-#{$size} {
+				@include core.extend-ns('pine', 'gap', 'margin-#{$size}');
+			}
+			&.#{$class-name}--#{$prefix}margin-row-#{$size} {
+				@include core.extend-ns('pine', 'gap', 'margin-row-#{$size}');
+			}
+			&.#{$class-name}--#{$prefix}margin-column-#{$size} {
+				@include core.extend-ns('pine', 'gap', 'margin-column-#{$size}');
+			}
+			&.#{$class-name}--#{$prefix}padding-#{$size} {
+				@include core.extend-ns('pine', 'gap', 'padding-#{$size}');
+			}
+			&.#{$class-name}--#{$prefix}padding-row-#{$size} {
+				@include core.extend-ns('pine', 'gap', 'padding-row-#{$size}');
+			}
+			&.#{$class-name}--#{$prefix}padding-column-#{$size} {
+				@include core.extend-ns('pine', 'gap', 'padding-column-#{$size}');
+			}
+			&.#{$class-name}--#{$prefix}combine-#{$size} {
+				@include core.extend-ns('pine', 'gap', 'combine-#{$size}');
+			}
+			&.#{$class-name}--#{$prefix}combine-alt-#{$size} {
+				@include core.extend-ns('pine', 'gap', 'combine-alt-#{$size}');
+			}
+			
+			// абсолютные
+			&.#{$class-name}--#{$prefix}margin-#{$size}a {
+				@include core.extend-ns('pine', 'gap', 'margin-#{$size}a');
+			}
+			&.#{$class-name}--#{$prefix}margin-row-#{$size}a {
+				@include core.extend-ns('pine', 'gap', 'margin-row-#{$size}a');
+			}
+			&.#{$class-name}--#{$prefix}margin-column-#{$size}a {
+				@include core.extend-ns('pine', 'gap', 'margin-column-#{$size}a');
+			}
+			&.#{$class-name}--#{$prefix}padding-#{$size}a {
+				@include core.extend-ns('pine', 'gap', 'padding-#{$size}a');
+			}
+			&.#{$class-name}--#{$prefix}padding-row-#{$size}a {
+				@include core.extend-ns('pine', 'gap', 'padding-row-#{$size}a');
+			}
+			&.#{$class-name}--#{$prefix}padding-column-#{$size}a {
+				@include core.extend-ns('pine', 'gap', 'padding-column-#{$size}a');
+			}
+			&.#{$class-name}--#{$prefix}combine-#{$size}a {
+				@include core.extend-ns('pine', 'gap', 'combine-#{$size}a');
+			}
+			&.#{$class-name}--#{$prefix}combine-alt-#{$size}a {
+				@include core.extend-ns('pine', 'gap', 'combine-alt-#{$size}a');
+			}
+		}
+	}
+}

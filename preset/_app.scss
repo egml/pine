@@ -1,0 +1,28 @@
+//
+//	██████  ██████  ███████ ███████ ███████ ████████
+//	██   ██ ██   ██ ██      ██      ██         ██
+//	██████  ██████  █████   ███████ █████      ██
+//	██      ██   ██ ██           ██ ██         ██
+//	██      ██   ██ ███████ ███████ ███████    ██
+//	
+//	 █████  ██████  ██████
+//	██   ██ ██   ██ ██   ██
+//	███████ ██████  ██████
+//	██   ██ ██      ██
+//	██   ██ ██      ██
+//	
+//	#preset #app
+//
+@use '../core';
+@use '../text';
+@use 'basic' as *;
+
+@mixin app {
+	@include basic;
+	@include core.selector(core.$root-container-name) {
+		@include core.extend-ns('pine', 'text');
+		// Базовый размер шрифта устанавливается относительно `text.$size-mount-point`, 
+		// а уже все внутри приложения относительно `text.$size`
+		font-size: core.em(text.$size, text.$size-mount-point);
+	}
+}

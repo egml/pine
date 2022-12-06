@@ -1,0 +1,51 @@
+//
+//	██████  ██████  ███████ ███████ ███████ ████████
+//	██   ██ ██   ██ ██      ██      ██         ██
+//	██████  ██████  █████   ███████ █████      ██
+//	██      ██   ██ ██           ██ ██         ██
+//	██      ██   ██ ███████ ███████ ███████    ██
+//
+//	██████   █████  ███████ ██  ██████
+//	██   ██ ██   ██ ██      ██ ██
+//	██████  ███████ ███████ ██ ██
+//	██   ██ ██   ██      ██ ██ ██
+//	██████  ██   ██ ███████ ██  ██████
+//	
+//	#preset #basic
+//
+@use 'normalize-scss';
+@use '../text';
+@use '../nullify';
+@use '../normalize';
+@use '../edge';
+@use '../gap';
+@use '../row';
+@use '../column';
+@use '../paragraph';
+@use '../section';
+@use '../input-placeholder';
+@use '../full-height';
+@use '../contain-margins';
+@use '../holy-grail';
+@use '../page';
+
+@mixin basic {
+	@if normalize.$enabled {
+		@include normalize-scss.normalize;
+		@include normalize.global;
+	}
+	@include text.placeholders;
+	@include nullify.placeholders;
+	@include normalize.placeholders;
+	@include edge.placeholders;
+	@include gap.placeholders;
+	@include row.placeholders;
+	@include column.placeholders;
+	@include paragraph.placeholders;
+	@include section.placeholders;
+	@include input-placeholder.placeholders;
+	@include full-height.placeholders;
+	@include contain-margins.placeholders;
+	@include holy-grail.placeholders;
+	@include page.placeholders;
+}

@@ -1,0 +1,24 @@
+//
+//	███████ ███████  ██████ ████████ ██  ██████  ███    ██
+//	██      ██      ██         ██    ██ ██    ██ ████   ██
+//	███████ █████   ██         ██    ██ ██    ██ ██ ██  ██
+//	     ██ ██      ██         ██    ██ ██    ██ ██  ██ ██
+//	███████ ███████  ██████    ██    ██  ██████  ██   ████
+//	
+//	#section
+//
+@use '../core';
+@use 'config' as *;
+
+@mixin placeholders
+{
+	@include core.placeholder-extend-ns('pine', 'section', 'margin', 'pine', 'gap', 'margin-#{$default-gap-size}', true);
+	@include core.placeholder-extend-ns('pine', 'section', 'padding', 'pine', 'gap', 'padding-#{$default-gap-size}', true);
+
+	@each $size in $gap-sizes {
+		@include core.placeholder-extend-ns('pine', 'section', 'margin-#{$size}', 'pine', 'gap', 'margin-#{$size}', true);
+		@include core.placeholder-extend-ns('pine', 'section', 'margin-#{$size}a', 'pine', 'gap', 'margin-#{$size}a', true);
+		@include core.placeholder-extend-ns('pine', 'section', 'padding-#{$size}', 'pine', 'gap', 'padding-#{$size}', true);
+		@include core.placeholder-extend-ns('pine', 'section', 'padding-#{$size}a', 'pine', 'gap', 'padding-#{$size}a', true);
+	}
+}

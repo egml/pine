@@ -1,0 +1,39 @@
+// 
+//	 ██████  ██████  ███    ██ ████████  █████  ██ ███    ██
+//	██      ██    ██ ████   ██    ██    ██   ██ ██ ████   ██
+//	██      ██    ██ ██ ██  ██    ██    ███████ ██ ██ ██  ██
+//	██      ██    ██ ██  ██ ██    ██    ██   ██ ██ ██  ██ ██
+//	 ██████  ██████  ██   ████    ██    ██   ██ ██ ██   ████
+// 
+//	███    ███  █████  ██████   ██████  ██ ███    ██ ███████
+//	████  ████ ██   ██ ██   ██ ██       ██ ████   ██ ██
+//	██ ████ ██ ███████ ██████  ██   ███ ██ ██ ██  ██ ███████
+//	██  ██  ██ ██   ██ ██   ██ ██    ██ ██ ██  ██ ██      ██
+//	██      ██ ██   ██ ██   ██  ██████  ██ ██   ████ ███████
+//	
+//	#contain #margins
+// 
+
+@use '../core';
+
+@mixin placeholders
+{
+	@include core.placeholder-ns('pine', 'contain-margins') {
+		&::before,
+		&::after {
+			content: '';
+			display: table;
+		}
+	}
+
+	@include core.placeholder-ns('pine', 'contain-margins', 'overflow-auto') {
+		overflow: auto;
+	}
+
+	@include core.placeholder-ns('pine', 'contain-margins', 'overflow-hidden') {
+		overflow: hidden;
+	}
+
+	// псевдоним overflow -> overflow-hidden
+	@include core.placeholder-extend-ns('pine', 'contain-margins', 'overflow', 'pine', 'contain-margins', 'overflow-hidden');
+}

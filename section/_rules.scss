@@ -1,0 +1,77 @@
+//
+//	███████ ███████  ██████ ████████ ██  ██████  ███    ██
+//	██      ██      ██         ██    ██ ██    ██ ████   ██
+//	███████ █████   ██         ██    ██ ██    ██ ██ ██  ██
+//	     ██ ██      ██         ██    ██ ██    ██ ██  ██ ██
+//	███████ ███████  ██████    ██    ██  ██████  ██   ████
+//	
+//	#section
+//
+@use '../core';
+@use '../gap';
+@use 'config';
+
+@mixin rules($ns: 'pine')
+{
+	@include core.selector-ns($ns, 'section') {
+		$class-name: core.name('section', $ns);
+		
+		@include gap.mods($ns, 'section');
+		
+		&.#{$class-name}--margin,
+		&.#{$class-name}--margin-column {
+			&.#{$class-name}--first {
+				margin-top: 0;
+			}
+			&.#{$class-name}--last {
+				margin-bottom: 0;
+			}
+			&.#{$class-name}--edge {
+				@include core.extend-ns('pine', 'edge', 'margin-column');
+			}
+		}
+		&.#{$class-name}--padding,
+		&.#{$class-name}--padding-column {
+			&.#{$class-name}--first {
+				padding-top: 0;
+			}
+			&.#{$class-name}--last {
+				padding-bottom: 0;
+			}
+			&.#{$class-name}--edge {
+				@include core.extend-ns('pine', 'edge', 'padding-column');
+			}
+		}
+		
+		@each $size in config.$gap-sizes {
+			&.#{$class-name}--margin-#{$size},
+			&.#{$class-name}--margin-#{$size}a,
+			&.#{$class-name}--margin-column-#{$size},
+			&.#{$class-name}--margin-column-#{$size}a {
+				&.#{$class-name}--first {
+					margin-top: 0;
+				}
+				&.#{$class-name}--last {
+					margin-bottom: 0;
+				}
+				&.#{$class-name}--edge {
+					@include core.extend-ns('pine', 'edge', 'margin-column');
+				}
+			}
+			&.#{$class-name}--padding-#{$size},
+			&.#{$class-name}--padding-#{$size}a,
+			&.#{$class-name}--padding-column-#{$size},
+			&.#{$class-name}--padding-column-#{$size}a {
+				&.#{$class-name}--first {
+					padding-top: 0;
+				}
+				&.#{$class-name}--last {
+					padding-bottom: 0;
+				}
+				&.#{$class-name}--edge {
+					@include core.extend-ns('pine', 'edge', 'padding-column');
+				}
+			}
+		}
+	}
+}

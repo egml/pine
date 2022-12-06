@@ -1,0 +1,93 @@
+@use 'sass:string';
+@use 'sass:list';
+@use 'config' as *;
+@use '../text/config' as text;
+
+@function str($value) {
+	@return if($value, string.quote(list.nth($value, 1)), '');
+}
+@function name($name, $ns: $ns) {
+	$name: str($name);
+	@if string.length($name) == 0 {
+		@return '#{$ns}';
+	} @else {
+		@return '#{prefix($ns)}#{$name}';
+	}
+}
+@function name-add($name, $addage, $glue: '-') {
+	$name: str($name);
+	$addage: str($addage);
+	@if string.length($name) == 0 {
+		$glue: '';
+	}
+	@return '#{$name}#{$glue}#{$addage}';
+}
+@function prefix($name, $glue: '-') {
+	$name: str($name);
+	@return if(string.length($name) == 0, '', '#{$name}#{$glue}');
+}
+@function suffix($name, $glue: '--') {
+	$name: str($name);
+	@return if(string.length($name) == 0, '', '#{$glue}#{$name}');
+}
+@function special-suffix($name) {
+	@return suffix($name, '--_');
+}
+@function modificator($name) {
+	@return if($name == 'default', '', suffix($name));
+}
+@function mod($name) {
+	@return modificator($name);
+}
+@function placeholder($class, $mod: 'default', $ns: $ns) {
+	@return placeholder-ns($ns, $class, $mod);
+}
+@function placeholder-ns($ns, $class, $mod: 'default') {
+	$class-name: name($class, $ns);
+	@if string.length($class-name) == 0 {
+		@error "pine.$ns должен быть определен для создания классов без имени";
+	} @else {
+		@return '%#{$class-name}#{mod($mod)}';
+	}
+}
+@function selector($class, $mods: (), $ns: $ns) {
+	@return selector-ns($ns, $class, $mods);
+}
+@function selector-ns($ns, $class, $mods: ()) {
+	$class-name: name($class, $ns);
+	@if string.length($class-name) == 0 {
+		@error "pine.$ns должен быть определен для создания классов без имени";
+	} @else {
+		$mods: normalize-mods($mods);
+		@if list.length($mods) == 1 {
+			@return '.#{$class-name}';
+		} @else {
+			$mod-selector: '';
+			@each $mod in $mods {
+				@if $mod != 'default' {
+					$mod-suffix: mod($mod);
+					$mod-selector: $mod-selector + '.#{$class-name}#{$mod-suffix}';
+				}
+			}
+			@return '.#{$class-name}#{$mod-selector}';
+		}
+	}
+}
+@function normalize-mods($mods) {
+	@if list.index($mods, 'default') == null {
+		$mods: list.append($mods, 'default');
+	}
+	@return $mods;
+}
+@function em($px, $base: text.$size) {
+	@return $px / $base + 0em;
+}
+@function rem($px, $base: text.$size-html-element) {
+	@return $px / $base + 0rem;
+}
+@function design-value($value) {
+	@return $value * $design-scale-factor;
+}
+@function dv($value) {
+	@return design-value($value);
+}

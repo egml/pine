@@ -1,0 +1,61 @@
+//
+//	██████  ██ ███    ██ ███████
+//	██   ██ ██ ████   ██ ██
+//	██████  ██ ██ ██  ██ █████
+//	██      ██ ██  ██ ██ ██
+//	██      ██ ██   ████ ███████
+//	
+//	#pine
+//
+// 	[1]: Конфигурация должна идти вначале, затем все остальное. Потому что Sass 😑.
+//       Так и не понял, с чем это связано, кажется, с наличием `!default` в файле.
+//       Если есть `!default` и этот файл имеет зависимости от других модулей, то все
+//       эти `!default` надо выносить в отдельный модуль ("конфигурацию") и загружать
+//       (инициализировать) перед основным модулем.
+// 
+
+$preset: 'basic' !default;
+
+// [1]
+@forward 'core/config';
+@forward 'text/config' as text-*;
+@forward 'normalize/config' as normalize-*;
+@forward 'gap/config' as gap-*;
+@forward 'row/config' as row-*;
+@forward 'column/config' as column-*;
+@forward 'paragraph/config' as paragraph-*;
+@forward 'section/config' as section-*;
+@forward 'layer/config' as layer-*;
+@forward 'page/config' as page-*;
+@forward 'spacer/config' as spacer-*;
+
+@forward 'core';
+@forward 'text' as text-*;
+@forward 'nullify' as nullify-*;
+@forward 'normalize' as normalize-*;
+@forward 'edge' as edge-*;
+@forward 'gap' as gap-*;
+@forward 'row' as row-*;
+@forward 'column' as column-*;
+@forward 'paragraph' as paragraph-*;
+@forward 'section' as section-*;
+@forward 'input-placeholder' as input-placeholder-*;
+@forward 'contain-margins' as contain-margins-*;
+@forward 'full-height' as full-height-*;
+@forward 'holy-grail' as holy-grail-*;
+@forward 'layer';
+@forward 'page' as page-*;
+@forward 'spacer' as spacer-*;
+@forward 'preset' as preset-*;
+
+@use 'preset';
+
+@if $preset == 'basic' {
+	@include preset.basic;
+}
+@if $preset == 'app' {
+	@include preset.app;
+}
+@if $preset == 'website' {
+	@include preset.website;
+}

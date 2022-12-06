@@ -1,0 +1,22 @@
+//
+//	██████   █████  ██████   █████   ██████  ██████   █████  ██████  ██   ██
+//	██   ██ ██   ██ ██   ██ ██   ██ ██       ██   ██ ██   ██ ██   ██ ██   ██
+//	██████  ███████ ██████  ███████ ██   ███ ██████  ███████ ██████  ███████
+//	██      ██   ██ ██   ██ ██   ██ ██    ██ ██   ██ ██   ██ ██      ██   ██
+//	██      ██   ██ ██   ██ ██   ██  ██████  ██   ██ ██   ██ ██      ██   ██
+//	
+//	#paragraph
+//
+@use '../core';
+@use 'config' as *;
+
+@mixin placeholders
+{
+	@include core.placeholder-extend-ns('pine', 'paragraph', 'default', 'pine', 'paragraph', 'margin', $optional: true);
+	@include core.placeholder-extend-ns('pine', 'paragraph', 'margin', 'pine', 'gap', 'margin-column-#{$default-gap-size}', $optional: true);
+
+	@each $size in $gap-sizes {
+		@include core.placeholder-extend-ns('pine', 'paragraph', 'margin-#{$size}', 'pine', 'gap', 'margin-column-#{$size}', $optional: true);
+		@include core.placeholder-extend-ns('pine', 'paragraph', 'margin-#{$size}a', 'pine', 'gap', 'margin-column-#{$size}a', $optional: true);
+	}
+}

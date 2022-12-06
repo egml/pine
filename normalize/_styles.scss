@@ -1,0 +1,103 @@
+// 
+//	███    ██  ██████  ██████  ███    ███  █████  ██      ██ ███████ ███████
+//	████   ██ ██    ██ ██   ██ ████  ████ ██   ██ ██      ██    ███  ██
+//	██ ██  ██ ██    ██ ██████  ██ ████ ██ ███████ ██      ██   ███   █████
+//	██  ██ ██ ██    ██ ██   ██ ██  ██  ██ ██   ██ ██      ██  ███    ██
+//	██   ████  ██████  ██   ██ ██      ██ ██   ██ ███████ ██ ███████ ███████
+//	
+//	#normalize
+// 
+@use '../core';
+
+@mixin styles($mods: 'default') {
+	@each $mod in $mods {
+		@if $mod == 'default' {}
+		@if $mod == 'global' {
+			@include global();
+		}
+		@if $mod == 'focus' {
+			@include focus();
+		}
+		@if $mod == 'tap' {
+			@include tap();
+		}
+		@if $mod == 'svg' {
+			@include svg();
+		}
+	}
+}
+
+// 
+// 	Последующий normalize. Вызывается в preset-basic. Последующий имеется в виду за 
+// 	базовым, который также вызывается в preset-basic.
+// 
+@mixin global() {
+	// -----------------------
+	// Доработки normalize.css
+	// -----------------------
+	button, textarea, optgroup, select,
+	input[type="text"], input[type="button"], 
+	input[type="submit"], input[type="file"] {
+		// @include plum-extend('text');
+		// Не совсем правильно, потому что это normalize, а не стилизация.
+		// Просто впредь надо иметь в виду, что поля ввода не наследуют стили текста от контейнера.
+	}
+	
+	a, button, textarea, select, input {
+		@include tap();
+	}
+	
+	textarea, input[type="text"], select {
+		@include focus();
+	}
+}
+
+// 
+// 	Устарело. Normalize для block не должно быть. Если уж и использовать, то nullify--block. 
+// 	Но это другое. Здесь просто псевдоним до nullify--block для обратной совместимости.
+// 
+// #block
+
+//
+//	Делать normalize для button не нужно, т.к. за этим достаточно следит normalize.css
+//
+// #button
+
+//
+// 	Теперь (конец 2020) Firefox стал добавлять outline к текстовым полям
+//
+// #focus
+@mixin focus() {
+	&:focus {
+		outline: 0;
+	}
+}
+
+// #tap
+@mixin tap() {
+	-webkit-tap-highlight-color: transparent;
+}
+
+// #svg
+@mixin svg($clip: false) {
+	width: core.em(30);
+	height: core.em(30);
+	stroke-width: 0;
+	
+	// Также в Gecko есть стили (теперь они даже включены по умолчанию, взятые из normalize.css),
+	// которые надо переписывать, потому что Gecko обрезает графику, которая нарисована вплотную 
+	// к границам холста, 1px по правому и нижнему краю в разных ситуациях, в зависимости, видимо,
+	// от расположения элемента, а иногда вообще не обрезает.
+	@if $clip == false {
+		&:not(:root) {
+			overflow: visible;
+		}
+	}
+
+	// Маленький хак для Gecko, чтобы не было "залипания" выделения текста,
+	// если оно задевает `<svg>` с тегом `<use>`
+	use {
+		user-select: auto;
+		-moz-user-select: none;
+	}
+}

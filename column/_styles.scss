@@ -1,0 +1,61 @@
+//
+//	 ██████  ██████  ██      ██    ██ ███    ███ ███    ██
+//	██      ██    ██ ██      ██    ██ ████  ████ ████   ██
+//	██      ██    ██ ██      ██    ██ ██ ████ ██ ██ ██  ██
+//	██      ██    ██ ██      ██    ██ ██  ██  ██ ██  ██ ██
+//	 ██████  ██████  ███████  ██████  ██      ██ ██   ████
+//	
+//	#column
+//
+@mixin styles($mods: 'default') {
+	@each $mod in $mods {
+		@if $mod == 'default' {
+			display: flex;
+			align-items: stretch;
+			justify-content: normal;
+			flex-flow: column nowrap;
+		}
+		@if $mod == 'block' {
+			display: flex;
+		}
+		@if $mod == 'inline' {
+			display: inline-flex;
+		}
+		@if $mod == 'top' {
+			justify-content: flex-start;
+		}
+		@if $mod == 'normal' {
+			justify-content: normal;
+		}
+		@if $mod == 'stretch' {
+			align-items: stretch;
+		}
+		@if $mod == 'middle' {
+			justify-content: center;
+		}
+		@if $mod == 'safe-middle' {
+			justify-content: safe center;
+		}
+		@if $mod == 'bottom' {
+			justify-content: flex-end;
+		}
+		@if $mod == 'left' {
+			align-items: flex-start;
+		}
+		@if $mod == 'center' {
+			align-items: center;
+		}
+		@if $mod == 'safe-center' {
+			align-items: safe center;
+		}
+		@if $mod == 'right' {
+			align-items: flex-end;
+		}
+		@if $mod == 'wrap' {
+			flex-wrap: wrap;
+		}
+		@if $mod == 'nowrap' {
+			flex-wrap: nowrap;
+		}
+	}
+}

@@ -1,0 +1,60 @@
+//
+//	███████ ██████   █████   ██████ ███████ ██████
+//	██      ██   ██ ██   ██ ██      ██      ██   ██
+//	███████ ██████  ███████ ██      █████   ██████
+//	     ██ ██      ██   ██ ██      ██      ██   ██
+//	███████ ██      ██   ██  ██████ ███████ ██   ██
+//	
+//	#spacer
+//
+@use '../core';
+@use 'config' as *;
+@use 'sass:list';
+
+@mixin rules($ns: 'pine')
+{
+	@if list.length($sizes) > 0 {
+		@include core.placeholder-ns($ns, 'spacer', 'block', $all-media: false) {
+			display: block;
+		}
+		@include core.placeholder-ns($ns, 'spacer', 'inline', $all-media: false) {
+			display: inline-block;
+		}
+		@include core.class-extend-ns($ns, 'spacer', $ns, 'spacer', 'block', $extendable: false);
+		@include core.class-mod-extend-ns($ns, 'spacer', 'block', $ns, 'spacer', 'block', $extendable: false);
+		@include core.class-mod-extend-ns($ns, 'spacer', 'inline', $ns, 'spacer', 'inline', $extendable: false);
+		@include core.class-mod-extend-ns($ns, 'spacer', 'horizontal', $ns, 'spacer', 'inline', $extendable: false);
+		@include core.class-mod-extend-ns($ns, 'spacer', 'edge', 'pine', 'edge', 'column-margin', $extendable: false);
+	}
+
+	@each $size in $sizes {
+		@include core.placeholder-ns($ns, 'spacer', '#{$size}', $all-media: false) {
+			height: core.em($size);
+		}
+		@include core.placeholder-ns($ns, 'spacer', '#{$size}a', $all-media: false) {
+			height: core.rem($size);
+		}
+		@include core.placeholder-ns($ns, 'spacer', 'margin-#{$size}', $all-media: false) {
+			margin-top: core.em($size);
+			margin-bottom: core.em($size);
+		}
+		@include core.placeholder-ns($ns, 'spacer', 'margin-#{$size}a', $all-media: false) {
+			margin-top: core.rem($size);
+			margin-bottom: core.rem($size);
+		}
+		@include core.class-mod-extend-ns($ns, 'spacer', '#{$size}', $ns, 'spacer', '#{$size}', $extendable: false);
+		@include core.class-mod-extend-ns($ns, 'spacer', '#{$size}a', $ns, 'spacer', '#{$size}a', $extendable: false);
+		@include core.class-mod-extend-ns($ns, 'spacer', 'margin-#{$size}', $ns, 'spacer', 'margin-#{$size}', $extendable: false);
+		@include core.class-mod-extend-ns($ns, 'spacer', 'margin-#{$size}a', $ns, 'spacer', 'margin-#{$size}a', $extendable: false);
+		@include core.class-mod-combine-ns($ns, 'spacer', 'block', '#{$size}', $ns, 'spacer', '#{$size}', $extendable: false);
+		@include core.class-mod-combine-ns($ns, 'spacer', 'block', '#{$size}a', $ns, 'spacer', '#{$size}a', $extendable: false);
+		@include core.class-mod-combine-ns($ns, 'spacer', 'inline', '#{$size}', $extendable: false) {
+			height: auto;
+			width: core.em($size);
+		}
+		@include core.class-mod-combine-ns($ns, 'spacer', 'inline', '#{$size}a', $extendable: false) {
+			height: auto;
+			width: core.rem($size);
+		}
+	}
+}

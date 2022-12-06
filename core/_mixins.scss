@@ -1,0 +1,366 @@
+@use 'sass:string';
+@use 'sass:list';
+@use 'sass:map';
+@use 'config' as *;
+@use 'functions' as *;
+@use '../text/config' as text;
+
+//
+//	███████ ██   ██ ████████ ███████ ███    ██ ██████
+//	██       ██ ██     ██    ██      ████   ██ ██   ██
+//	█████     ███      ██    █████   ██ ██  ██ ██   ██
+//	██       ██ ██     ██    ██      ██  ██ ██ ██   ██
+//	███████ ██   ██    ██    ███████ ██   ████ ██████
+//	
+//	#extend
+//
+
+@mixin extend($extender: null, $mods: 'default', $media: null, $optional: false, $ns: $ns) {
+	@include extend-ns($ns, $extender, $mods, $media, $optional);
+}
+@mixin extend-ns($ns, $extender: null, $mods: 'default', $media: null, $optional: false) {
+	@if string.length(str($extender)) != 0 {
+		$name: name($extender, $ns);
+		$media: special-suffix($media);
+		@each $mod in $mods {
+			$mod: mod($mod);
+			@if $optional {
+				@extend %#{$name}#{$mod}#{$media} !optional;
+			} @else {
+				@extend %#{$name}#{$mod}#{$media};
+			}
+		}
+	}
+}
+
+//
+//	██████  ██       █████   ██████ ███████
+//	██   ██ ██      ██   ██ ██      ██
+//	██████  ██      ███████ ██      █████
+//	██      ██      ██   ██ ██      ██
+//	██      ███████ ██   ██  ██████ ███████
+//	
+//	██   ██  ██████  ██      ██████  ███████ ██████
+//	██   ██ ██    ██ ██      ██   ██ ██      ██   ██
+//	███████ ██    ██ ██      ██   ██ █████   ██████
+//	██   ██ ██    ██ ██      ██   ██ ██      ██   ██
+//	██   ██  ██████  ███████ ██████  ███████ ██   ██
+//	
+//	#placeholder
+//
+
+@mixin placeholder($name: null, $mod: 'default', $all-media: true) {
+	@include placeholder-ns($ns, $name, $mod, $all-media) { @content; }
+}
+@mixin placeholder-ns($ns, $name: null, $mod: 'default', $all-media: true) {
+	@include placeholder-extend-ns($ns, $name, $mod, $all-media: $all-media) { @content; }
+}
+@mixin placeholder-extend($extendee, $extendee-mod, $extender: null, $extender-mods: 'default', $optional: false, $all-media: true) {
+	@include placeholder-extend-ns($ns, $extendee, $extendee-mod, $ns, $extender, $extender-mods, $optional, $all-media) {
+		@content;
+	}
+}
+@mixin placeholder-extend-ns($extendee-ns, $extendee, $extendee-mod, $extender-ns: $ns, $extender: null, $extender-mods: 'default', $optional: false, $all-media: true) {
+	$placeholder: placeholder($extendee, $extendee-mod, $extendee-ns);
+	#{$placeholder} {
+		@if string.length(str($extender)) != 0 {
+			@include extend-ns($extender-ns, $extender, $extender-mods, null, $optional);
+		}
+		@content;
+	}
+	@if $all-media {
+		@each $device in $media-devices {
+			@include media($device) {
+				$media-suffix: special-suffix($device);
+				#{$placeholder}#{$media-suffix} {
+					@if string.length(str($extender)) != 0 {
+						@include extend-ns($extender-ns, $extender, $extender-mods, $device, $optional);
+					}
+					@content;
+				}
+			}
+		}
+	}
+}
+
+// 
+//	███████ ███████ ██      ███████  ██████ ████████  ██████  ██████
+//	██      ██      ██      ██      ██         ██    ██    ██ ██   ██
+//	███████ █████   ██      █████   ██         ██    ██    ██ ██████
+//	     ██ ██      ██      ██      ██         ██    ██    ██ ██   ██
+//	███████ ███████ ███████ ███████  ██████    ██     ██████  ██   ██
+// 
+//	#selector
+// 
+
+@mixin selector($name, $mods: (), $targets: null, $ns: $ns) {
+	@include selector-ns($ns, $name, $mods, $targets) { @content; }
+}
+@mixin selector-ns($ns, $name, $mods: (), $targets: null) {
+	$selector: selector-ns($ns, $name, $mods);
+	@if $targets {
+		#{list.join($targets, (), comma)} {
+			&#{$selector} {
+				@content;
+			}
+		}
+	} @else {
+		#{$selector} {
+			@content;
+		}
+	}
+}
+
+//
+//	 ██████ ██       █████  ███████ ███████
+//	██      ██      ██   ██ ██      ██
+//	██      ██      ███████ ███████ ███████
+//	██      ██      ██   ██      ██      ██
+//	 ██████ ███████ ██   ██ ███████ ███████
+//	
+//	#class #modificator
+//
+
+@mixin class($class: null, $targets: null, $extendable: true) {
+	@include class-ns($ns, $class, $targets, $extendable) { @content; }
+}
+@mixin class-ns($ns, $class: null, $targets: null, $extendable: true) {
+	@include class-modificator-ns($ns, $class, 'default', $targets, $extendable) { @content; }
+}
+@mixin class-mod($class: null, $mod: 'default', $targets: null, $extendable: true) {
+	@include class-modificator($class, $mod, $targets, $extendable) { @content; }
+}
+@mixin class-modificator($class: null, $mod: 'default', $targets: null, $extendable: true) {
+	@include class-modificator-ns($ns, $class, $mod, $targets, $extendable) { @content; }
+}
+@mixin class-modificator-ns($ns, $class: null, $mod: 'default', $targets: null, $extendable: true) {
+	@if $extendable {
+		@include placeholder-ns($ns, $class, $mod) {
+			@content;
+		}
+		@include selector-ns($ns, $class, $mod, $targets) {
+			@include extend-ns($ns, $class, $mod, null, true); // optional потому что @content может быть пустой, соответственно плейсхолдер не отрендерится
+		}
+	} @else {
+		@include selector-ns($ns, $class, $mod, $targets) {
+			@content;
+		}
+	}
+}
+@mixin class-mod-ns($ns, $class: null, $mod: 'default', $targets: null, $extendable: true) {
+	@include class-modificator-ns($ns, $class, $mod, $targets, $extendable) { @content; }
+}
+
+@mixin class-extend($class: null, $extender: null, $extender-mods: 'default', $optional: false, $targets: null, $extendable: true) {
+	@include class-extend-ns($ns, $class, $ns, $extender, $extender-mods, $optional, $targets, $extendable) { @content; }
+}
+@mixin class-extend-ns($ns, $class: null, $extender-ns: $ns, $extender: null, $extender-mods: 'default', $optional: false, $targets: null, $extendable: true) {
+	@include class-modificator-extend-ns($ns, $class, 'default', $extender-ns, $extender, $extender-mods, $optional, $targets, $extendable) { @content; }
+}
+@mixin class-modificator-extend($class: null, $mod: 'default', $extender: null, $extender-mods: 'default', $optional: false, $targets: null, $extendable: true) {
+	@include class-modificator-extend-ns($ns, $class, $mod, $ns, $extender, $extender-mods, $optional, $targets, $extendable) { @content; }
+}
+@mixin class-mod-extend($class: null, $mod: 'default', $extender: null, $extender-mods: 'default', $optional: false, $targets: null, $extendable: true) {
+	@include class-modificator-extend($class, $mod, $extender, $extender-mods, $optional, $targets, $extendable) { @content; }
+}
+@mixin class-modificator-extend-ns($ns, $class: null, $mod: 'default', $extender-ns: $ns, $extender: null, $extender-mods: 'default', $optional: false, $targets: null, $extendable: true) {
+	@if $extendable {
+		@include placeholder-extend-ns($ns, $class, $mod, $extender-ns, $extender, $extender-mods, $optional) {
+			@content;
+		}
+		@include selector-ns($ns, $class, $mod, $targets) {
+			@include extend-ns($ns, $class, $mod, null, true); // optional потому что @content может быть пустой, соответственно плейсхолдер не отрендерится
+		}
+	} @else {
+		@include selector-ns($ns, $class, $mod, $targets) {
+			@include extend-ns($extender-ns, $extender, $extender-mods, null, $optional);
+			@content;
+		}
+	}
+}
+@mixin class-mod-extend-ns($ns, $class: null, $mod: 'default', $extender-ns: $ns, $extender: null, $extender-mods: 'default', $optional: false, $targets: null, $extendable: true) {
+	@include class-modificator-extend-ns($ns, $class, $mod, $extender-ns, $extender, $extender-mods, $optional, $targets, $extendable) { @content; }
+}
+
+@mixin class-mod-combine($class: null, $mod-1: 'default', $mod-2: null, $extender: null, $extender-mods: 'default', $optional: false, $targets: null, $extendable: true) {
+	@include class-mod-combine-ns($ns, $class, $mod-1, $mod-2, $ns, $extender, $extender-mods, $optional, $targets, $extendable) { @content; }
+}
+@mixin class-mod-combine-ns($ns: $ns, $class: null, $mod-1: 'default', $mod-2: null, $extender-ns: $ns, $extender: null, $extender-mods: 'default', $optional: false, $targets: null, $extendable: true) {
+	$combined-mod: #{$mod-1}#{mod($mod-2)};
+	@if $extendable {
+		@include placeholder-extend-ns($ns, $class, $combined-mod, $extender, $extender-mods, $optional) {
+			@content;
+		}
+		@include selector-ns($ns, $class, ($mod-1, $mod-2), $targets) {
+			@include extend-ns($ns, $class, $combined-mod, null, true); // optional потому что @content может быть пустой, соответственно плейсхолдер не отрендерится
+		}
+	} @else {
+		@include selector-ns($ns, $class, ($mod-1, $mod-2), $targets) {
+			@include extend-ns($extender-ns, $extender, $extender-mods, null, $optional);
+			@content;
+		}
+	}
+}
+
+// 
+//	 ██████ ██   ██ ██ ██      ██████
+//	██      ██   ██ ██ ██      ██   ██
+//	██      ███████ ██ ██      ██   ██
+//	██      ██   ██ ██ ██      ██   ██
+//	 ██████ ██   ██ ██ ███████ ██████
+// 
+//	#child
+// 
+
+@mixin child($class: null, $mods: null, $ns: $ns) {
+	@include child-ns($ns, $class, $mods) { @content; }
+}
+@mixin child-ns($ns, $class: null, $mods: null) {
+	@include selector-ns($ns, $class, $mods) {
+		@include extend-ns($ns, $class, $mods, $optional: true);
+		@content;
+	}
+}
+@mixin direct-child($class: null, $mods: null, $ns: $ns) {
+	@include direct-child-ns($ns, $class, $mods) { @content; }
+}
+@mixin direct-child-ns($ns, $class: null, $mods: null) {
+	> #{selector-ns($ns, $class, $mods)} {
+		@include extend-ns($ns, $class, $mods, $optional: true);
+		@content;
+	}
+}
+
+// 
+//	███    ███ ███████ ██████  ██  █████
+//	████  ████ ██      ██   ██ ██ ██   ██
+//	██ ████ ██ █████   ██   ██ ██ ███████
+//	██  ██  ██ ██      ██   ██ ██ ██   ██
+//	██      ██ ███████ ██████  ██ ██   ██
+// 
+//	#media
+// 	
+// 	Данный подход с изменением значений границ пограничных пространств нужен, чтобы не было
+// 	перехлеста и коллапса стилей соседствующих медиа-пространств.
+// 	
+// 	Прибавляем `em(.8, 16)` чтобы добиться правильного перехлеста пространств, 
+//	то есть если указано, что `mobile` до 380 px, то при 380 px будет отображаться `mobile`,
+// 	а не следующее пространство. Раньше использовалось вычитание и это работало не правильно.
+// 	
+// 	Также прибавляем не 1px, переведенный в em, а 0.8px потому что в FF, например, одного 
+// 	пикселя слишком много для правильного округления границы медиа-пространства. Нужно
+// 	дальнейшее тестирование. Если 0.8 будет лагать, то нужно его поменять.
+// 	
+
+@mixin media($device) {
+	@if not list.index($media-devices, $device) {
+		@error 'Название медиа-пространства указано неверно ("#{$device}"): такого нет в `pine.$media-devices`';
+	}
+	@if list.length($media-devices) > 1 {
+		$i: list.index($media-devices, $device);
+		$l: list.length($media-devices);
+		@if list.length($media-breakpoints) < 1 {
+			@error '`pine.$media-breakpoints` не определён';
+		}
+		@if $i == 1 {
+			@media (max-width: em(list.nth(list.nth($media-breakpoints, $i), 2), 16)) {
+				@content;
+			}
+		} @else if $i > 1 and $i < $l {
+			@media 
+				(min-width: em(list.nth(list.nth($media-breakpoints, $i - 1), 2), 16) + em(.8, 16))
+				and 
+				(max-width: em(list.nth(list.nth($media-breakpoints, $i), 2), 16))
+			{
+				@content;
+			}
+		} @else if $i == $l {
+			@media (min-width: em(list.nth(list.nth($media-breakpoints, $i - 1), 2), 16) + em(.8, 16)) {
+				@content;
+			}
+		}
+	}
+}
+
+// 
+//	██    ██ ███████ ███    ██ ██████   ██████  ██████
+//	██    ██ ██      ████   ██ ██   ██ ██    ██ ██   ██
+//	██    ██ █████   ██ ██  ██ ██   ██ ██    ██ ██████
+//	 ██  ██  ██      ██  ██ ██ ██   ██ ██    ██ ██   ██
+//	  ████   ███████ ██   ████ ██████   ██████  ██   ██
+// 
+//	██████  ██████  ███████ ███████ ██ ██   ██
+//	██   ██ ██   ██ ██      ██      ██  ██ ██
+//	██████  ██████  █████   █████   ██   ███
+//	██      ██   ██ ██      ██      ██  ██ ██
+//	██      ██   ██ ███████ ██      ██ ██   ██
+// 
+//	#vendor #prefix
+// 
+
+@mixin vendor-prefix($prop, $value) {
+	@if $prop == keyframes {
+		@-webkit-keyframes #{$value} {
+			@content;
+		}
+		@keyframes #{$value} {
+			@content;
+		}
+	}
+	@if $prop == 'user-select' {
+		-webkit-user-select: $value;
+		-moz-user-select: $value;
+		-ms-user-select: $value;
+		user-select: $value;
+	}
+	@if $prop == 'appearance' {
+		-webkit-appearance: $value;
+		-moz-appearance: $value;
+		appearance: $value;
+	}
+	@if $prop == 'animation' {
+		-webkit-animation: $value;
+		animation: $value;
+	}
+	@if $prop == 'transform' {
+		-webkit-transform: $value;
+		transform: $value;
+	}
+	@if $prop == 'transform-origin' {
+		-webkit-transform-origin: $value;
+		transform-origin: $value;
+	}
+	@if $prop == 'transition' {
+		-webkit-transition: -webkit-#{$value};
+		transition: $value;
+	}
+}
+
+//
+//	███████ ██    ██  ██████
+//	██      ██    ██ ██
+//	███████ ██    ██ ██   ███
+//	     ██  ██  ██  ██    ██
+//	███████   ████    ██████
+//	
+//	#svg
+//
+
+@mixin svg($size: 20, $fill: none, $stroke-width: 0, $stroke-color: transparent, $viewbox-size: 100, $size-relative: true, $size-base: text.$size) {
+	@if $size-relative == true {
+		width: em($size, $size-base);
+		height: em($size, $size-base);
+	} @else {
+		width: rem($size, $size-base);
+		height: rem($size, $size-base);
+	}
+	@if $fill != null {
+		fill: $fill;
+	}
+	@if $stroke-color != null {
+		stroke: $stroke-color;
+	}
+	@if $stroke-width != null {
+		stroke-width: $viewbox-size / $size * $stroke-width + px;
+	}
+}
