@@ -6,8 +6,6 @@
 
 🌲 Utilities and helpers for Sass.
 
-## 
-
 ## License
 
 [MIT License](https://mit-license.org/)
