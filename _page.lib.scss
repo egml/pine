@@ -3,10 +3,10 @@
 // 
 //  Разметка для `page`:
 //  
-//  <page-parent>
+//  <page>
 //  	<page-container>
 //  		<page-container-helper>
-//  			<page>
+//  			<page-pillar>
 //  				<page-header>
 //  					<page-header-content/>
 //  				</page-header>
@@ -33,11 +33,11 @@ $pine-page--gutter: 50 !default;
 
 @mixin pine-page--rules($ns: 'pine')
 {
-	@include pine-class-extend-ns($ns, 'page-parent', 'pine', 'holy-grail', 'parent');
+	@include pine-class-extend-ns($ns, 'page', 'pine', 'holy-grail', 'parent');
 	@include pine-class-extend-ns($ns, 'page-container', 'pine', 'holy-grail', 'container');
 	@include pine-class-extend-ns($ns, 'page-container-helper', 'pine', 'holy-grail', 'container-helper');
-	@include pine-class-extend-ns($ns, 'page', 'pine', 'page-width', 'outer', true);
-	@include pine-class-extend-ns($ns, 'page', 'pine', 'holy-grail', 'pillar');
+	@include pine-class-extend-ns($ns, 'page-pillar', 'pine', 'page-width', 'outer', true);
+	@include pine-class-extend-ns($ns, 'page-pillar', 'pine', 'holy-grail', 'pillar');
 
 	// 
 	//  page-row нужен, чтобы обеспечить возможностью создавать столько "строк" на 
